@@ -1,0 +1,5 @@
+require('plugins.telescope')
+require('plugins.colorscheme')
+require('plugins.mason')
+require('plugins.mason-lsp')
+require('plugins.lsp-config')
