@@ -20,16 +20,38 @@ lua require('config')
 
 call plug#begin()
 " Theme
-	Plug 'ayu-theme/ayu-vim'
+	Plug 'projekt0n/github-nvim-theme'
 
 " Telescope Plugin
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim' 
 
+" Tree-Sitter
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " LSP
 	Plug 'williamboman/mason.nvim'
 	Plug 'williamboman/mason-lspconfig.nvim'
 	Plug 'neovim/nvim-lspconfig'
+
+" Auto-Completion
+	Plug 'hrsh7th/cmp-nvim-lsp'
+	Plug 'hrsh7th/cmp-buffer'
+	Plug 'hrsh7th/cmp-path'
+	Plug 'hrsh7th/cmp-cmdline'
+	Plug 'hrsh7th/nvim-cmp'
+
+" Snippets
+    Plug 'rafamadriz/friendly-snippets'
+	Plug 'L3MON4D3/LuaSnip'
+	Plug 'saadparwaiz1/cmp_luasnip'
+	
+" Diagnostics
+	Plug 'nvim-tree/nvim-web-devicons'
+	Plug 'folke/trouble.nvim'
+
+" File Explorer
+	Plug 'stevearc/oil.nvim'
 
 call plug#end()
 

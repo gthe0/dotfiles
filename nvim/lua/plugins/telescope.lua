@@ -2,7 +2,6 @@
 local telescope_status,builtin = pcall(require, "telescope.builtin")
 if not telescope_status then
 	return
-
 end
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
