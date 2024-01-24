@@ -43,15 +43,16 @@ call plug#begin()
 
 " Snippets
     Plug 'rafamadriz/friendly-snippets'
-	Plug 'L3MON4D3/LuaSnip'
+	Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
 	Plug 'saadparwaiz1/cmp_luasnip'
 	
 " Diagnostics
-	Plug 'nvim-tree/nvim-web-devicons'
-	Plug 'folke/trouble.nvim'
 
 " File Explorer
 	Plug 'stevearc/oil.nvim'
+
+" Auto-Pairs
+	Plug 'windwp/nvim-autopairs'
 
 call plug#end()
 
