@@ -4,7 +4,7 @@ if not mason_status then
 end
 
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "clangd" , "vimls" },
+    ensure_installed = {"clangd", "vimls","lua_ls","rust_analyzer","marksman","texlab","jsonls","taplo"},
 }
 
 require("mason-lspconfig").setup_handlers {

@@ -1,53 +1,50 @@
-  local cmp = require'cmp'
+local cmp_status,cmp = pcall(require, "cmp")
+if not cmp_status then
+	return
+end
 
   cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+ require('luasnip').lsp_expand(args.body)
       end,
     },
     window = {
-completion = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
     },
+
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-	  ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif require("luasnip").expand_or_jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif require("luasnip").jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' }, -- For luasnip users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
+		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<Down>"]= cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+		['<C-b>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.confirm({select = true})
+			elseif require("luasnip").expand() then
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand", true, true, true), "")
+			else
+				fallback()
+			end
+		end
+		,{"s","i",}
+		)
+	}),
+
+	sources = cmp.config.sources({
+		{ name = 'nvim_lsp' },
+		{ name = 'luasnip' },
+		{ name = "path" },
+	},
+	{
+		{ name = 'buffer' },
+	})
+})
 
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
@@ -73,7 +70,3 @@ completion = cmp.config.window.bordered(),
     })
   })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
-  }

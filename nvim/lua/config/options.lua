@@ -32,7 +32,7 @@ opt.tabstop = 4
 
 -- WildMenu Options
 opt.wildmode = "full:list,full" -- Better tab completion
-opt.pumheight = 10
+opt.pumheight = 5
 opt.wildignorecase = true -- Case insensitive command searching
 
 -- Apperance
@@ -43,6 +43,7 @@ opt.path:append("**")
 
 -- General Settigns
 opt.backspace = { "start", "eol", "indent" } -- Makes backspace go to the upper line if current line is fully deleted
+opt.swapfile = false -- Disable swapfile creation
 opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Do not show some completion messages
 opt.hidden = true -- Makes the buffers that are not displayed hidden
 opt.encoding = "utf-8" -- Changes the encoding to UTF-8

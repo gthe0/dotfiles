@@ -20,39 +20,37 @@ lua require('config')
 
 call plug#begin()
 " Theme
-	Plug 'projekt0n/github-nvim-theme'
+Plug 'phha/zenburn.nvim'
 
 " Telescope Plugin
-	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim' 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim' 
 
 " Tree-Sitter
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " LSP
-	Plug 'williamboman/mason.nvim'
-	Plug 'williamboman/mason-lspconfig.nvim'
-	Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 
 " Auto-Completion
-	Plug 'hrsh7th/cmp-nvim-lsp'
-	Plug 'hrsh7th/cmp-buffer'
-	Plug 'hrsh7th/cmp-path'
-	Plug 'hrsh7th/cmp-cmdline'
-	Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " Snippets
-    Plug 'rafamadriz/friendly-snippets'
-	Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
-	Plug 'saadparwaiz1/cmp_luasnip'
-	
-" Diagnostics
+Plug 'rafamadriz/friendly-snippets'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " File Explorer
-	Plug 'stevearc/oil.nvim'
+Plug 'stevearc/oil.nvim'
 
-" Auto-Pairs
-	Plug 'windwp/nvim-autopairs'
+" Icons
+Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
 
