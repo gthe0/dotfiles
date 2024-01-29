@@ -44,7 +44,6 @@
   :config (move-text-default-bindings))
 
 ;; yasnipet
-
 (use-package yasnippet-snippets
   :straight t
  )
