@@ -12,6 +12,7 @@ vim.diagnostic.config({
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 
+-- Visual Studio like diagnostics
 vim.keymap.set('n', '<S-F8>', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<F8>', vim.diagnostic.goto_next)
 
@@ -22,6 +23,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
 
 	local cmp_status,_ = pcall(require, "cmp")
+
 	if not cmp_status then
     -- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -50,12 +52,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+	vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
 	vim.keymap.set('n', 'GD',  function()
 		vim.cmd([[ vsplit ]])
 		vim.lsp.buf.definition()
   end, opts)
+
 	--------------------------------------------------------------------
 	-- WorkSpace Folders
 	--------------------------------------------------------------------

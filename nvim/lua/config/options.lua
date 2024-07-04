@@ -47,4 +47,4 @@ opt.swapfile = false -- Disable swapfile creation
 opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Do not show some completion messages
 opt.hidden = true -- Makes the buffers that are not displayed hidden
 opt.encoding = "utf-8" -- Changes the encoding to UTF-8
-opt.timeoutlen = 300 -- The time that nvim waits for next command input
+opt.timeoutlen = 400 -- The time that nvim waits for next command input

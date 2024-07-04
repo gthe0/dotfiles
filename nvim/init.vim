@@ -20,7 +20,7 @@ lua require('config')
 
 call plug#begin()
 " Theme
-Plug 'phha/zenburn.nvim'
+Plug 'Mofiqul/vscode.nvim'
 
 " Telescope Plugin
 Plug 'nvim-lua/plenary.nvim'
@@ -34,6 +34,12 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 
+" Linting
+Plug 'mfussenegger/nvim-lint'
+
+" Formatter
+Plug 'stevearc/conform.nvim'
+
 " Auto-Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -46,14 +52,7 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} 
 Plug 'saadparwaiz1/cmp_luasnip'
 
-" File Explorer
-Plug 'stevearc/oil.nvim'
-
-" Icons
-Plug 'nvim-tree/nvim-web-devicons'
-
 call plug#end()
-
 
 """ Loading Plugin's settings
 lua require('plugins')
