@@ -8,6 +8,12 @@ vim.diagnostic.config({
   virtual_text = false
 })
 
+-- I want to log almost everything so...
+vim.lsp.set_log_level('error')
+
+-- Disable telemetry
+vim.lsp.telemetry = false ;
+
 -- Global mappings.
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)

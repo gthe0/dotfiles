@@ -1,10 +1,16 @@
--- linting
-require('lint').linters_by_ft = {
+-- Import lint safely
+local lint_status, lint = pcall(require, 'lint')
+if not lint_status then
+	return
+end
+
+-- Match linters to languages
+lint.linters_by_ft = {
   cpp = {'cpplint'},
   java = {'checkstyle'},
 }
 
--- I do not know if this works
+-- Funtion used to call the linters
 vim.keymap.set("n", "<leader>l", function()
-	require('lint').try_lint()
+	lint.try_lint()
 	end, { desc = "Trigger linting for current file" })

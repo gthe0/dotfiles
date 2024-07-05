@@ -1,16 +1,21 @@
-require("conform").setup({
+-- Import conform safely
+local conform_status, conform = pcall(require, "conform")
+if not conform_status then
+	return
+end
+
+conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
 	cpp = {"clang-format"},
 	java = {"google-java-format"},
-    python = { "isort", "black" },
+    python = { "isort" },
     javascript = { { "prettierd", "prettier" } },
   },
 })
 
-
 vim.keymap.set({ "n", "v", "i" }, "<M-F>", function()
-	require("conform").format({
+	conform.format({
 		lsp_fallback = true,
 		async = false,
 		timeout_ms = 1000,
