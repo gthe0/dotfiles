@@ -14,6 +14,11 @@ conform.setup({
   },
 })
 
+conform.formatters.clangformat = {
+    prepend_args = {"--style={IndentWidth:4}"},
+
+}
+
 vim.keymap.set({ "n", "v", "i" }, "<M-F>", function()
 	conform.format({
 		lsp_fallback = true,

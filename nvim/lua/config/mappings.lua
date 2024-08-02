@@ -2,6 +2,6 @@ local keymap = vim.keymap
 
 vim.g.mapleader = " "		-- Remapping Leader Key to space
 
-keymap.set('n', 'gp', '<cmd>bprev<CR>', vim.opts) -- Go to previous buffer
-keymap.set('n', 'gn', '<cmd>bnext<CR>', vim.opts) -- Go to next buffe
-keymap.set('n', '<leader>bc', '<cmd>bdelete<CR>', vim.opts) -- Delete current buffer
+keymap.set('n', '<leader>cd', '<cmd>lcd%:h<CR>', vim.opts) -- Change current working directory to the current file
+keymap.set('n', '<leader>b', '<cmd>:buffers<CR>:buffer<Space>', vim.opts) -- Display buffer list and then select the one that you want to
+

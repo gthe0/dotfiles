@@ -22,6 +22,9 @@ call plug#begin()
 " Theme
 Plug 'Mofiqul/vscode.nvim'
 
+" AutoPairs
+Plug 'windwp/nvim-autopairs'
+
 " Telescope Plugin
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim' 

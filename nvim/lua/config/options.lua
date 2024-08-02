@@ -25,8 +25,8 @@ opt.splitright = true -- Put new windows right of current
 opt.scrolloff = 5 -- Minimal number of screen lines to keep above and below the cursor.
 
 -- Tab Options
-opt.expandtab = false -- Use Tab character on pressing Tab key
-opt.softtabstop = 4 -- Makes the tab be 2 spaces long
+opt.expandtab = true -- Use Spaces on pressing Tab key
+opt.softtabstop = 4 -- Makes the tab be 4 spaces long
 opt.shiftwidth = 4
 opt.tabstop = 4
 
