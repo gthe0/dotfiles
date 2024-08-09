@@ -103,7 +103,7 @@ vim.diagnostic.config({
     update_in_insert = true,
     underline = true,
     float = {
-        scope = 'cursor',
+        scope = 'line',
         border = 'single',
     }
 })
