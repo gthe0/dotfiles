@@ -1,7 +1,15 @@
-local ok, _ = pcall(vim.cmd.colorscheme , 'vscode')
+return
+{
+  -- tokyonight
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    opts = { style = "moon" },
 
-if ok then
-	vim.cmd.colorscheme "vscode"
-else
-	vim.cmd.colorscheme "desert"
-end
+    -- Load tokyonight colorscheme after installing it
+    config = function()
+        vim.cmd.colorscheme "tokyonight"
+    end
+  },
+
+}

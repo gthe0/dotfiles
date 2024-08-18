@@ -90,6 +90,17 @@ lspconfig.lua_ls.setup({
 	},
 })
 
+
+------------------------------------------------------------------------
+-- Signature Helper
+------------------------------------------------------------------------
+vim.lsp.handlers['textDocument/signatureHelp']  = vim.lsp.with(vim.lsp.handlers['signature_help'], {
+    border = 'single',
+    close_events = { "CursorMoved", "BufHidden" },
+})
+
+vim.keymap.set('i', '<c-s>', vim.lsp.buf.signature_help)
+
 ------------------------------------------------------------------------
 -- Diagnostic settings
 ------------------------------------------------------------------------
