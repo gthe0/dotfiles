@@ -37,9 +37,9 @@ return {
 				keymap.set("n", "gD", lsp.buf.declaration, opts)
 				keymap.set("n", "gi", lsp.buf.implementation, opts)
 				keymap.set("n", "gr", lsp.buf.references, opts)
-				keymap.set("n", "<leader>d", lsp.buf.type_definition, opts)
+				keymap.set("n", "<leader>D", lsp.buf.type_definition, opts)
 				keymap.set("n", "<leader>rn", lsp.buf.rename, opts)
-				keymap.set("n", "GD", function()
+				keymap.set("n", "<leader>d", function()
                     if vim.fn.winnr("$") > 1  then
 
                         vim.cmd([[ vsplit ]])
