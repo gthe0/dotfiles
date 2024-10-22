@@ -55,3 +55,8 @@ opt.encoding = "utf-8" -- Changes the encoding to UTF-8
 opt.timeoutlen = 400 -- The time that nvim waits for the next command's input
 opt.wrap = false -- Disable text wrapping
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6fc64b2df95b630a37e25eeff219ad10c98aa2db

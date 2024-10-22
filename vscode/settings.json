@@ -22,7 +22,7 @@
             "source": "Git Bash"
         },
         "Windows PowerShell": {
-            "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+            "path": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
         },
         "Developer PowerShell":
         {
@@ -32,15 +32,15 @@
                 "-NoLogo"
                 ,"-NoExit"
                 ,"-Command"
-                ,"&{Import-Module 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll'; Enter-VsDevShell b9de59ab -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'}"
-            ],
-        },
+                ,"&{Import-Module '${env:ProgramFiles}\\Microsoft Visual Studio\\2022\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll'; Enter-VsDevShell b9de59ab -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'}"
+                ]
+        }
     },
     "terminal.integrated.defaultProfile.windows": "Developer PowerShell",
     "security.workspace.trust.banner": "never",
     "terminal.integrated.autoReplies": {},
     "cmake.configureOnOpen": true,
-    "python.defaultInterpreterPath": "C:\\Users\\user\\anaconda3\\python.exe",
+    "python.defaultInterpreterPath": "${env:USERPROFILE}\\anaconda3\\envs\\pdf_reader\\python.exe",
     "workbench.startupEditor": "none",
     "zenMode.hideLineNumbers": false,
     "zenMode.centerLayout": false,
@@ -48,10 +48,19 @@
     "zenMode.hideStatusBar": false,
     "telemetry.telemetryLevel": "off",
     "vscode_custom_css.imports": [
-        "file:///c:/Users/user/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.1/dist/updateHandler.js"
+        "file:///%HOMEPATH%/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.1/dist/updateHandler.js"
     ],
     "git.confirmSync": false,
     "prettier.useTabs": true,
     "editor.insertSpaces": false,
-    "editor.detectIndentation": false
+	"editor.detectIndentation": false,
+	"editor.minimap.enabled": false,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"cmake.pinnedCommands": [
+		"workbench.action.tasks.configureTaskRunner",
+		"workbench.action.tasks.runTask"
+	],
+	"json.schemas": [
+	
+	]
 }

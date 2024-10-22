@@ -34,7 +34,11 @@ return {
             require('telescope').load_extension("undo")
 
             -- Undo Tree through telescope
+<<<<<<< HEAD
             keymap.set('n','<leader>u',"<cmd>Telescope undo<cr><ESC>")
+=======
+            keymap.set('n','<leader>u',"<cmd>Telescope undo<cr>")
+>>>>>>> 6fc64b2df95b630a37e25eeff219ad10c98aa2db
 
         end
     }
