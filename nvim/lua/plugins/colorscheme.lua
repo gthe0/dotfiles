@@ -1,7 +1,30 @@
-local ok, _ = pcall(vim.cmd.colorscheme , 'zenburn')
+return
+{
+    -- tokyonight
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        opts = { style = "moon" },
 
-if ok then
-	vim.cmd.colorscheme "zenburn"
-else
-	vim.cmd.colorscheme "desert"
-end
+        -- Load tokyonight colorscheme after installing it
+        config = function()
+ --           vim.cmd.colorscheme "tokyonight"
+        end
+    },
+    {
+        "phha/zenburn.nvim",
+        lazy = false,
+
+        config = function()
+        end
+    },
+    {
+        "Mofiqul/vscode.nvim",
+        lazy = false,
+
+        config = function()
+                require("vscode").setup()
+                vim.cmd.colorscheme "vscode"
+        end
+    }
+}

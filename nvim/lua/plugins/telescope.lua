@@ -1,13 +1,41 @@
--- Import telescope safely
-local telescope_status,builtin = pcall(require, "telescope.builtin")
+return {
+    -- Telescope Plugin
+    {
+        "nvim-telescope/telescope.nvim",
 
--- Terminate if unsuccessfull
-if not telescope_status then
-	return
-end
+        tag = "0.1.5",
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, {})
+        -- Telescope configuration
+        config = function()
+
+            -- Load telescope extension first...
+            require('telescope').setup({ })
+
+            -- Telescope keybinds
+            local keymap = vim.keymap
+            local builtin = require('telescope.builtin')
+
+            keymap.set('n', '<leader>pf', builtin.find_files, {})
+            keymap.set('n', '<leader>fd', builtin.diagnostics, {})
+            keymap.set('n', '<leader>g', builtin.live_grep, {})
+            keymap.set('n', '<leader>b', builtin.buffers, {})
+
+        end
+    },
+    -- Telescope Undo plugin
+    {
+        "debugloop/telescope-undo.nvim",
+
+        config = function()
+
+            local keymap = vim.keymap
+
+            -- Load undo extension
+            require('telescope').load_extension("undo")
+
+            -- Undo Tree through telescope
+            keymap.set('n','<leader>u',"<cmd>Telescope undo<cr><ESC>")
+
+        end
+    }
+}

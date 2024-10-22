@@ -6,8 +6,13 @@
 
 local opt = vim.opt
 
+-- Leader key
+vim.g.mapleader = " "
+vim.g.localleader = "\\"
+
 -- Line enumeration
 opt.number = true -- Line number
+opt.relativenumber = true -- Set relative numbers on
 
 -- Search Options
 opt.hlsearch = true -- Highlight search results
@@ -23,10 +28,11 @@ opt.infercase = true -- Infers the Case based of Search results
 opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 opt.scrolloff = 5 -- Minimal number of screen lines to keep above and below the cursor.
+opt.winminwidth = 5 -- Minimum Window Width
 
 -- Tab Options
-opt.expandtab = false -- Use Tab character on pressing Tab key
-opt.softtabstop = 4 -- Makes the tab be 2 spaces long
+opt.expandtab = true -- Use Spaces on pressing Tab key
+opt.softtabstop = 4 -- Makes the tab be 4 spaces long
 opt.shiftwidth = 4
 opt.tabstop = 4
 
@@ -44,7 +50,8 @@ opt.path:append("**")
 -- General Settigns
 opt.backspace = { "start", "eol", "indent" } -- Makes backspace go to the upper line if current line is fully deleted
 opt.swapfile = false -- Disable swapfile creation
-opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Do not show some completion messages
 opt.hidden = true -- Makes the buffers that are not displayed hidden
 opt.encoding = "utf-8" -- Changes the encoding to UTF-8
-opt.timeoutlen = 300 -- The time that nvim waits for next command input
+opt.timeoutlen = 400 -- The time that nvim waits for the next command's input
+opt.wrap = false -- Disable text wrapping
+
