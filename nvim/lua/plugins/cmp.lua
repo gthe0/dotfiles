@@ -28,7 +28,6 @@ return {
         end
 
         cmp.setup({
-<<<<<<< HEAD
 
             -- Disable autocompletion inside comments
             enabled = function ()
@@ -43,8 +42,6 @@ return {
                 end
             end,
 
-=======
->>>>>>> 6fc64b2df95b630a37e25eeff219ad10c98aa2db
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
