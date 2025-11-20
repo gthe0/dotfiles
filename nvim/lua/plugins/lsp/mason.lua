@@ -36,12 +36,10 @@ return {
                 -- list of servers for mason to install
                 ensure_installed = {
                     "clangd",
-                    "vimls",
                     "lua_ls",
                     "rust_analyzer",
                     "marksman",
                     "texlab",
-                    "jsonls",
                     "taplo"
                 }
             })

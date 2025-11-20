@@ -1,0 +1,10 @@
+[Linux]
+"nvim" = "~/.config/nvim"
+"emacs"  = "~/.config/emacs"
+".vimrc" = "~/.vimrc"
+
+[Windows]
+"nvim"= "~/.config/nvim"
+"emacs" = "~/.config/emacs"
+".vimrc"= "_vimrc"
+
