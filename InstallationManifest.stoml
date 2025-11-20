@@ -1,0 +1,17 @@
+# I wanted something very very simple and easy to parse for the configuration installer
+# The extension stoml is derived from Simple TOML
+# The only things that are permited are:
+# - Simple tags e.g. [Linux]
+# - The comments can be started only in the start of the line
+# - Keys and Values are Strings
+
+[Linux]
+"nvim" = "~/.config/nvim"
+"emacs"  = "~/.config/emacs"
+".vimrc" = "~/.vimrc"
+
+[Windows]
+"nvim"= "~/.config/nvim"
+"emacs" = "~/.config/emacs"
+".vimrc"= "_vimrc"
+
