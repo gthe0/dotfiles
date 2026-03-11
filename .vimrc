@@ -30,15 +30,13 @@ set scrolloff =5 "Minimal number of screen lines to keep above and below the cur
 
 "" Tab Options
 set expandtab "Use spaces when pressing tab
-set shiftwidth =4 "Makes the tab be 4 spaces long
-set tabstop =4 
 
 "" WildMenu
 set wildmenu "Enables the wild menu
 set wildignorecase "Case insensitive command search
 
 "" Apearance
-colorscheme darkblue
+colorscheme slate
 syntax on "Set syntax highlighting on
 
 " Enable 24-bit true colors if your terminal supports it.

@@ -7,7 +7,7 @@
 
 [Linux]
 "nvim" = "~/.config/nvim"
-"emacs"  = "~/.config/emacs"
+"emacs"  = "~/.emacs.d"
 ".vimrc" = "~/.vimrc"
 
 [Windows]
