@@ -14,15 +14,10 @@ Use the installation scripts provided for each platform.
 
 In linux use:
 ```bash
-./install_linux.pl <manifest_file> [mapping_1 mapping_2 ...]
+./install.sh <manifest_file> [mapping_1 mapping_2 ...]
 ```
+On other platforms and/or
 
-In windows use:
-```ps1
-./install_windows.ps1 <manifest_file> [mapping_1 mapping_2 ...]
-```
-
-The installation scripts will create by default soft symlinks to the dotfiles using the Manifest file you pass. Also you can pass specific mappings described in the Manifest file. If you want to move the dotfiles somewhere else, you need to delete the symlinks and re-run the scripts.
 
 ### Flags
 
