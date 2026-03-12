@@ -1,41 +1,29 @@
 return {
     -- Telescope Plugin
-    {
-        "nvim-telescope/telescope.nvim",
+    "nvim-telescope/telescope.nvim",
 
-        tag = "0.1.5",
-
-        -- Telescope configuration
-        config = function()
-
-            -- Load telescope extension first...
-            require('telescope').setup({ })
-
-            -- Telescope keybinds
-            local keymap = vim.keymap
-            local builtin = require('telescope.builtin')
-
-            keymap.set('n', '<leader>pf', builtin.find_files, {})
-            keymap.set('n', '<leader>fd', builtin.diagnostics, {})
-            keymap.set('n', '<leader>g', builtin.live_grep, {})
-            keymap.set('n', '<leader>b', builtin.buffers, {})
-
-        end
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install'
+        },
     },
-    -- Telescope Undo plugin
-    {
-        "debugloop/telescope-undo.nvim",
 
-        config = function()
+    -- Telescope configuration
+    config = function()
 
-            local keymap = vim.keymap
+        -- Load telescope extension first...
+        require('telescope').setup({ })
 
-            -- Load undo extension
-            require('telescope').load_extension("undo")
+        -- Telescope keybinds
+        local keymap = vim.keymap
+        local builtin = require('telescope.builtin')
 
-            -- Undo Tree through telescope
-            keymap.set('n','<leader>u',"<cmd>Telescope undo<cr><ESC>")
+        keymap.set('n', '<leader>pf', builtin.find_files, {})
+        keymap.set('n', '<leader>fd', builtin.diagnostics, {})
+        keymap.set('n', '<leader>g', builtin.live_grep, {})
+        keymap.set('n', '<leader>b', builtin.buffers, {})
 
-        end
-    }
+    end
 }

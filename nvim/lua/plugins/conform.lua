@@ -21,6 +21,7 @@ return {
                 lua = { "stylua" },
                 python = { "isort", "black" },
                 cpp = { "clang-format" },
+                c   = { "clang-format" },
             }
         })
 

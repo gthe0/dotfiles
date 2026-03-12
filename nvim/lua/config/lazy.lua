@@ -29,3 +29,4 @@ require("lazy").setup({
     {import = "plugins.lsp"},
     change_detection = { notify = false }
 })
+
