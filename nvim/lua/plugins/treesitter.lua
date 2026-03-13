@@ -3,13 +3,14 @@ return {
     -- Install TreeSitter Plugin
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    lazy  = false,
 
     -- TreeSitter configuration
     config = function()
-        require("nvim-treesitter.configs").setup({
+        require("nvim-treesitter").setup({
             -- A list of parser names, or "all"
             ensure_installed = {
-                "c", "lua", "rust", "bash", "cpp", "glsl"
+                "c", "lua", "bash", "cpp", "glsl"
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
