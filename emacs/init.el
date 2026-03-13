@@ -29,6 +29,7 @@
 (ido-everywhere 1)
 
 ;;; ========== CONFIGURING PLUGINS =================
+
 (load "~/.emacs.d/rc.el")
 
 ;; ido-completing-read+
@@ -55,7 +56,7 @@
 ;; Move-text
 (use-package move-text
   :straight t
-  :bind (("M-n" . move-text-down)
+  :bind (("M-n" . Move-text-down)
 	 ("M-p" . move-text-up))
   :config (move-text-default-bindings))
 
@@ -68,5 +69,8 @@
   :config
   (yas-global-mode 1))
 
+(rc/use-theme 'zenburn)
 
+(rc/use-packages 'helm 'helm-git-grep 'helm-ls-git)
 
+(setq helm-ff-transformer-show-only-basename 0)

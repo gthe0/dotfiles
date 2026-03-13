@@ -16,17 +16,17 @@
   (load bootstrap-file nil 'nomessage))
 
 ;; Utility functions 
-(defun rc/use-package (pkg &optional enable)
+(defun rc/use-one-package (pkg &optional enable)
   (straight-use-package pkg)
   (when enable (require pkg)))
 
 (defun rc/use-packages (&rest packages)
   (dolist (pkg packages) 
-    rc/enable-package(pkg t)))
+    rc/use-one-package pkg t))
 
 (defun rc/use-theme (theme)
   (let* ((name (symbol-name theme))
          (pkg  (intern (concat name "-theme"))))
-    (rc/enable-package pkg)
+    (rc/use-one-package pkg)
     (load-theme theme  t)))
 
