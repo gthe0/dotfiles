@@ -1,14 +1,13 @@
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 vim.lsp.enable({
-    "bashls",
     "clangd",
     "cmake",
     "glslls",
-    "lus_ls",
-    "vimls"
+    "lua-language-server",
+    "vim-language-server",
+    "bash-language-server"
 })
-
 
 -- Trigger autocompletion
 vim.api.nvim_create_autocmd('LspAttach', {

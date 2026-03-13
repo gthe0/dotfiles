@@ -1,6 +1,4 @@
 ;;; ========== GENERAL SETTINGS =================
-(load "~/.emacs.d/rc.el")
-
 (show-paren-mode 1)
 (column-number-mode 1)
 
@@ -30,4 +28,45 @@
 (ido-mode 1)
 (ido-everywhere 1)
 
-;;; ========== LOADING CONFIGS =================
+;;; ========== CONFIGURING PLUGINS =================
+(load "~/.emacs.d/rc.el")
+
+;; ido-completing-read+
+(use-package ido-completing-read+
+  :straight t
+  :config
+  (require 'ido-completing-read+)
+  (ido-ubiquitous-mode t))
+
+;; smex-mode
+(use-package smex
+ :straight t
+ :bind ("M-x" . smex))
+
+;; magit
+(use-package cl-lib
+  :straight t)
+
+(use-package magit
+  :straight t
+  :bind ("C-c m s" . magit-status)
+  ("C-c m l" . magit-log))
+
+;; Move-text
+(use-package move-text
+  :straight t
+  :bind (("M-n" . move-text-down)
+	 ("M-p" . move-text-up))
+  :config (move-text-default-bindings))
+
+;; yasnipet
+(use-package yasnippet-snippets
+  :straight t)
+
+(use-package yasnippet
+  :straight t
+  :config
+  (yas-global-mode 1))
+
+
+
