@@ -9,6 +9,7 @@ vim.lsp.enable({
     "lua_ls",
     "vimls",
     "bashls",
+    "basedpyright",
     "jdtls"
 })
 
