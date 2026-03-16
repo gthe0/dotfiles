@@ -8,7 +8,8 @@ vim.lsp.enable({
     "glslls",
     "lua_ls",
     "vimls",
-    "bashls"
+    "bashls",
+    "jdtls"
 })
 
 -- nvim diagnostics enable
