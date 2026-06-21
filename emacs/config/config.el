@@ -3,7 +3,15 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
+  (menu-bar-mode -1)
   (tooltip-mode -1))
+
+;;; ======== Visuals & Editor Tweaks ========
+
+;; Display relative line numbers
+(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-current-absolute t)
+(global-display-line-numbers-mode 1)
 
 (column-number-mode 1)
 (show-paren-mode 1)

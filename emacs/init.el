@@ -1,76 +1,29 @@
-;;; ========== GENERAL SETTINGS =================
-(show-paren-mode 1)
-(column-number-mode 1)
+;;; init.el --- gtheo's Emacs setup. -*- lexical-binding: t; -*-
+;;
+;; This file is the root file initializing my configuration
+;;
+;;; ======== Config ========
 
-;; Disable tool-bar and menu-bar
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
+;; Define Configuration Directory -- Contains general configurations
+(defvar config-dir
+  (expand-file-name "config" user-emacs-directory))
 
-(setq inhibit-startup-message 1) 
-(setq initial-scratch-message 0)
+;; Auto-load dirs
+(add-to-list 'load-path config-dir)
 
-(global-display-line-numbers-mode 1)
-(display-line-numbers-mode 1)			     
-(show-paren-mode 1)
+;; load files
+(require 'config)
+(require 'package)
 
-;; Disable Backups etc
-(setq make-backup-files 0)
-(setq auto-save-default 0)
-(setq create-lockfiles 0)
-
-
-;; Disable beeping sound on windows
-(setq visible-bell 1)
-(delete-selection-mode 1)
-
-;;Ido mode
-(ido-mode 1)
-(ido-everywhere 1)
-
-;;; ========== CONFIGURING PLUGINS =================
-
-(load "~/.emacs.d/rc.el")
-
-;; ido-completing-read+
-(use-package ido-completing-read+
-  :straight t
-  :config
-  (require 'ido-completing-read+)
-  (ido-ubiquitous-mode t))
-
-;; smex-mode
-(use-package smex
- :straight t
- :bind ("M-x" . smex))
-
-;; magit
-(use-package cl-lib
-  :straight t)
-
-(use-package magit
-  :straight t
-  :bind ("C-c m s" . magit-status)
-  ("C-c m l" . magit-log))
-
-;; Move-text
-(use-package move-text
-  :straight t
-  :bind (("M-n" . Move-text-down)
-	 ("M-p" . move-text-up))
-  :config (move-text-default-bindings))
-
-;; yasnipet
-(use-package yasnippet-snippets
-  :straight t)
-
-(use-package yasnippet
-  :straight t
-  :config
-  (yas-global-mode 1))
-
-(rc/use-theme 'zenburn)
-
-(rc/use-packages 'helm 'helm-git-grep 'helm-ls-git)
-
-(setq helm-ff-transformer-show-only-basename 0)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(helm meow)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
