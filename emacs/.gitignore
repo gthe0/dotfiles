@@ -3,5 +3,8 @@
 *
 
 !*.el
-!config
+!/config/g-config.el
+!/config/g-packages.el
+!/config
+
 !.gitignore

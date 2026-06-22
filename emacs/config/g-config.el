@@ -96,7 +96,6 @@
 																			
 (add-hook 'compilation-finish-functions #'pck/switch-to-grep-window)		
 
-
 ;; dired
 
 (require 'dired-x)
@@ -133,5 +132,5 @@
 (setq help-window-select t)
 
 ;; To see if it loaded properly
-(provide 'config)
+(provide 'g-config)
 
