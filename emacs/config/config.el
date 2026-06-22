@@ -21,6 +21,9 @@
 	      make-backup-files nil
 	      tab-width 4
 	      compilation-scroll-output t
+		  delete-selection-mode t
+		  use-short-answers t
+		  dired-kill-when-opening-new-dired-buffer t
 	      visible-bell (or (equal system-type 'windows-nt)
 			       (and (equal system-type 'gnu/linux)
 				    (getenv "WSLENV"))))
@@ -58,6 +61,47 @@
 
 ;; No need to fing file if it looks like a host name
 (setq ffap-machine-p-known 'reject)
+
+;; reduce GB from emacs
+
+(defvar cfg/gc-cons-threshold 16777216)
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold cfg/gc-cons-threshold
+                  gc-cons-percentage 0.1)))
+
+(defun cfg/defer-garbage-collection-h ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun cfg/restore-garbage-collection-h ()
+  ;; Defer it so that commands launched immediately after will enjoy the
+  ;; benefits.
+  (run-at-time
+   1 nil (lambda () (setq gc-cons-threshold cfg/gc-cons-threshold))))
+
+(add-hook 'minibuffer-setup-hook #'cfg/defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'cfg/restore-garbage-collection-h)
+(setq garbage-collection-messages t)
+
+;; dired
+
+(require 'dired-x)
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$"))
+(setq-default dired-dwim-target t)
+(setq dired-listing-switches "-alh")
+
+;; Set UTF-8 by default 
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
 
 ;; Ultimate Windows hacks
 (winner-mode +1)

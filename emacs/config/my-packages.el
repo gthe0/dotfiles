@@ -16,108 +16,180 @@
 (eval-when-compile
   (require 'use-package))
 
+;;; ======== Theme ========
+
+(use-package doom-themes
+  :ensure t
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; for treemacs users
+  (doom-themes-treemacs-theme "doom-one") ; use "doom-colors" for less minimal icon theme
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 ;;; ======== Helm Mode ========
 
 (use-package helm
-  :init
-  (helm-mode 1) ; Activates Helm globally for standard Emacs commands
-  :config
+   :config
   (setq helm-mode-fuzz-matching t
         helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match t)
   :bind
-  (("M-x" . helm-M-x)
-   ("C-x b" . helm-mini)       ; Quick buffer & recent files menu
-   ("C-s" . helm-occur)        ; Live search inside the active file
-   ("M-y" . helm-show-kill-ring) ; Interactive clipboard history
-   ("C-c i" . helm-imenu)))    ; Open interactive code map (functions list)
+  (("C-c h b" . helm-mini)       ; Quick buffer & recent files menu
+   ("C-c h s" . helm-occur)      ; Live search inside the active file
+   ("C-c h i" . helm-imenu)))    ; Open interactive code map (functions list)
 
+;;; ======== Ido Mode ========
 
-;;; ======== Meow Modal Editing ========
+(use-package smex)
+(use-package ido-completing-read+)
 
-(defun meow-setup ()
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  
-  ;; Motion mode overrides (navigating menus/lists like Helm)
-  (meow-motion-overwrite-define-key
-   '("j" . meow-next)
-   '("k" . meow-prev)
-   '("<escape>" . ignore))
-  
-  ;; Leader bindings (Tapping Space in Normal Mode)
-  (meow-leader-define-key
-   '("j" . meow-next-expand)
-   '("k" . meow-prev-expand)
-   '("?" . meow-cheatsheet)
+(require 'ido-completing-read+)
 
-   '("b" . helm-mini)               ; Space b to switch buffers
-   '("p f" . helm-find-files))      ; Space p f to open files list
-  
-  ;; Normal Mode Core Bindings
-  (meow-normal-define-key
-   '("0" . meow-expand-0)
-   '("1" . meow-expand-1)
-   '("2" . meow-expand-2)
-   '("3" . meow-expand-3)
-   '("4" . meow-expand-4)
-   '("5" . meow-expand-5)
-   '("6" . meow-expand-6)
-   '("7" . meow-expand-7)
-   '("8" . meow-expand-8)
-   '("9" . meow-expand-9)
-   '("-" . negative-argument)
-   '(";" . meow-reverse)
-   '("," . meow-inner-of-thing)
-   '("." . meow-bounds-of-thing)
-   '("[" . meow-beginning-of-thing)
-   '("]" . meow-end-of-thing)
-   '("a" . meow-append)
-   '("A" . meow-open-below)
-   '("b" . meow-back-word)
-   '("B" . meow-back-symbol)
-   '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("f" . meow-find)
-   '("g" . meow-cancel-selection)
-   '("G" . meow-grab)
-   '("h" . meow-left)
-   '("H" . meow-left-expand)
-   '("i" . meow-insert)
-   '("I" . meow-open-above)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
-   '("m" . meow-join)
-   '("n" . meow-search)
-   '("o" . meow-block)
-   '("O" . meow-to-block)
-   '("p" . meow-yank)
-   '("q" . meow-quit)
-   '("r" . meow-replace)
-   '("R" . meow-swap)
-   '("s" . meow-kill)
-   '("t" . meow-till)
-   '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
-   '("v" . meow-visit)
-   '("w" . meow-next-word)
-   '("W" . meow-next-symbol)
-   '("x" . meow-line)
-   '("X" . meow-goto-line)
-   '("y" . meow-save)
-   '("z" . meow-pop-selection)
-   '("'" . repeat)
-   '("<escape>" . meow-last-buffer)))
+(ido-mode 1)
+(ido-everywhere 1) 
+(ido-ubiquitous-mode 1)
 
-(use-package meow
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;;; ======== Move Text ========
+
+(use-package move-text
+  :bind
+  ("M-p" . move-text-up)
+  ("M-n" . move-text-down))
+
+;;; ======= Mixed Pitch Mode =======
+
+;; Used for having proportional fonts
+;; to display text that isn't code
+
+(use-package mixed-pitch
+  :after all-the-icons
+  :defer 1
+  :commands mixed-pitch-mode
+  :custom
+  (mixed-pitch-set-height t))
+
+;;; ======== Company Mode ========
+
+;; The standard dropdown as-you-type menu of modern IDEs
+
+(use-package prescient
+  :defer 1
+  :config
+  (prescient-persist-mode 1))
+
+(use-package company
+  :defer 1
+  :config
+  (global-company-mode 1))
+
+(use-package company-prescient
+  :defer 1
+  :after company prescient
+  :config
+  (company-prescient-mode 1))
+
+(use-package company-posframe
+  :defer 1
+  :after company
+  :custom
+  (company-posframe-quickhelp-delay nil)
+  :config
+  (company-posframe-mode 1))
+
+;;; ======== Evil Mode  ========
+
+(use-package undo-tree
+  :demand t
+  :config
+  (global-undo-tree-mode))
+(use-package evil
+  :demand t
+  :after undo-tree
   :init
-  (meow-setup)
-  (meow-global-mode 1))
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-want-C-u-scroll t
+        evil-want-Y-yank-to-eol t
+        evil-split-window-below t
+        evil-vsplit-window-right t
+        evil-respect-visual-line-mode t
+        evil-undo-system 'undo-tree)
+  :config
+  (evil-mode 1))
+(use-package evil-collection
+  :demand t
+  :after evil
+  :config
+  (evil-collection-init))
+(use-package evil-commentary
+  :demand t
+  :after evil
+  :config
+  (evil-commentary-mode 1))
+(use-package evil-surround
+  :demand t
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
+;;; ======== General Mode  ========
+
+(use-package general
+  :demand t
+  :config
+  (general-evil-setup t)
+  (general-create-definer leader-def
+    :states '(normal motion emacs)
+    :keymaps 'override
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC")
+  (leader-def
+    "" '(:ignore t :wk "leader")
+    "pf" '(:ignore t :wk "file")
+    "c" '(:ignore t :wk "checks")
+    "t" '(:ignore t :wk "toggle")
+    "b" '(:ignore t :wk "buffer")
+    "bd" 'kill-this-buffer
+    "bn" 'next-buffer
+    "bp" 'previous-buffer
+    "bx" 'kill-buffer-and-window)
+
+  (general-create-definer localleader-def
+    :states '(normal motion emacs)
+    :keymaps 'override
+    :prefix "\\"
+    :non-normal-prefix "C-SPC m")
+  (localleader-def "" '(:ignore t :wk "mode")))
+
+;; I am not sure how well it will integrate 
+;; with the rest of the config, we ll see
+
+;;; Treemacs
+
+(use-package nerd-icons)
+
+(use-package treemacs
+  :defer 2
+  :commands treemacs treemacs-find-file
+  :general
+  (leader-def
+    "tt" 'treemacs
+    "tf" 'treemacs-find-file))
+(use-package treemacs-evil
+  :defer 1
+  :after treemacs evil)
 
 (provide 'my-packages)
