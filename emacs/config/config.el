@@ -93,6 +93,7 @@
 (setq-default dired-dwim-target t)
 (setq dired-listing-switches "-alh")
 
+
 ;; Set UTF-8 by default 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)

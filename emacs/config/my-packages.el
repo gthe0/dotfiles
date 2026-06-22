@@ -36,17 +36,27 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-;;; ======== Helm Mode ========
+;;; ======== Vertico Mode ========
 
-(use-package helm
-   :config
-  (setq helm-mode-fuzz-matching t
-        helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match t)
-  :bind
-  (("C-c h b" . helm-mini)       ; Quick buffer & recent files menu
-   ("C-c h s" . helm-occur)      ; Live search inside the active file
-   ("C-c h i" . helm-imenu)))    ; Open interactive code map (functions list)
+(use-package vertico
+  :init
+  (vertico-mode 1)
+  :config
+  ;; Keep your interface clean and compact (shows 10 results max)
+  (setq vertico-count 10))
+
+;; Smart fuzzy searching (type "pckg" to match "package.el")
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic)))
+
+;; Beautiful metadata columns (gives descriptions next to choices)
+(use-package marginalia
+  :init
+  (marginalia-mode 1))
+
+;; Navigation search utilities (The fast modern alternative to Helm features)
+(use-package consult)
 
 ;;; ======== Ido Mode ========
 
@@ -109,6 +119,17 @@
   :config
   (company-posframe-mode 1))
 
+;;; ======== Projectile ========
+
+(use-package projectile
+  :ensure t
+  :demand t
+  :init
+  (projectile-mode +1)
+  :config
+  ;; This ensures projectile plays nice with Vertico cache
+  (setq projectile-indexing-method 'hybrid))
+
 ;;; ======== Evil Mode  ========
 
 (use-package undo-tree
@@ -158,14 +179,18 @@
     :non-normal-prefix "C-SPC")
   (leader-def
     "" '(:ignore t :wk "leader")
-    "pf" '(:ignore t :wk "file")
+    "f" '(:ignore t :wk "file")
     "c" '(:ignore t :wk "checks")
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
+    "p" '(:ignore t :wk "project")
+    "pf" 'projectile-find-file
+    "bb" 'buffer-menu
     "bd" 'kill-this-buffer
     "bn" 'next-buffer
     "bp" 'previous-buffer
-    "bx" 'kill-buffer-and-window)
+    "bx" 'kill-buffer-and-window
+	"rg" 'rgrep)
 
   (general-create-definer localleader-def
     :states '(normal motion emacs)
@@ -173,6 +198,9 @@
     :prefix "\\"
     :non-normal-prefix "C-SPC m")
   (localleader-def "" '(:ignore t :wk "mode")))
+
+;; Wanted to have Ex
+(evil-ex-define-cmd "Ex" 'dired)
 
 ;; I am not sure how well it will integrate 
 ;; with the rest of the config, we ll see
@@ -186,10 +214,17 @@
   :commands treemacs treemacs-find-file
   :general
   (leader-def
-    "tt" 'treemacs
-    "tf" 'treemacs-find-file))
+    "d" 'treemacs
+    "ff" 'treemacs-find-file))
 (use-package treemacs-evil
   :defer 1
   :after treemacs evil)
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :demand t
+  :general
+  (leader-def
+	"pd" 'treemacs-projectile)) 
 
 (provide 'my-packages)
