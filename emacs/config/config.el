@@ -131,6 +131,11 @@
 (setq window-combination-resize t)
 (setq help-window-select t)
 
-;; To see if it loaded properly
-(provide 'g-config)
+;; Pair
 
+(require 'elec-pair)
+(electric-pair-mode 1)
+(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
+;; To see if it loaded properly
+(provide 'config)

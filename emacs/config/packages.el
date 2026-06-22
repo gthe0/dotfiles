@@ -75,34 +75,6 @@
   :hook
   (text-mode . mixed-pitch-mode))
 
-;;; ======== Eglot (LSP) ========
-
-(use-package eglot
-  :ensure nil ;; Built-in to modern Emacs
-  :hook
-  ((c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure)
-   (java-mode . eglot-ensure))
-  :config
-  ;; Customizations to keep it quiet and lightning fast
-  (setq eglot-ignored-server-capabilities '(:diagnosticProvider))  ; Turn off inline compiler error clutter
-  (setq eldoc-idle-delay 10000)                                    ; Block instant hover-info popup bars
-  (add-hook 'eglot-managed-mode-hook (lambda ()
-									   (eglot-inlay-hints-mode -1)))) ; Remove intrusive parameter hints in text
-
-;;; ======== Automatic Pairing ========
-
-(use-package elec-pair
-  :ensure nil ;; Built-in tool
-  :init
-  (electric-pair-mode 1)
-  :config
-  ;; Prevent pairing single things whenever next to a single world/char
-  (setq electric-pair-inhibit-predicate `(lambda (c)
-                                           (if (char-equal c ?')
-                                               (eq (char-syntax (char-after)) ?w)
-                                             (electric-pair-default-inhibit c)))))
-
 ;;; ======== Company Mode ========
 
 ;; The standard dropdown as-you-type menu of modern IDEs
@@ -245,11 +217,7 @@
 
 ;; ======== Extra Minimal Utilities ========
 
-(use-package vterm
-  :config
-  (with-eval-after-load 'evil (evil-set-initial-state 'vterm-mode 'emacs)))
-
 (use-package yasnippet
   :config (yas-global-mode 1))
 
-(provide 'g-packages)
+(provide 'packages)
