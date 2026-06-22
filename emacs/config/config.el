@@ -128,8 +128,8 @@
 
 (global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
 
-(setq window-combination-resize t)
-(setq help-window-select t)
+(setq window-combination-resize t
+	  help-window-select t)
 
 ;; Pair
 

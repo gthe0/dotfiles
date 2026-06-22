@@ -126,6 +126,7 @@
   ;; Wanted to have Ex
   (evil-ex-define-cmd "Ex" 'dired-jump)
   (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
+  (evil-define-key 'normal 'global (kbd "C-w o") 'toggle-delete-other-windows)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -162,7 +163,7 @@
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
-
+	
 	;; project specific
     "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
 	"ps" '(consult-grep :which-key "Project-wide grep-ing")  
@@ -171,14 +172,13 @@
 	;; buffer related keys
     "bi" '(ibuffer :which-key "Interactive Buffer Picker")
     "bb" '(consult-buffer :which-key "Consult Interactive Buffer Picker ")
-    "bd" '(kill-this-buffer  :which-key "Delete Current Buffer")
+    "bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
     "bn" '(next-buffer :which-key "Go to next Buffer")
     "bp" '(previous-buffer :which-key "Go to previous Buffer")
 
 	;; files and dired
     "fr"  '(consult-recent-file :which-key "Recent files")
-    "fd"  '(dired-jump :which-key "Open Dired at current file")
-	"ff"  '(find-file :which-key "Find File")
+	"."  '(find-file :which-key "Find File")
 	
 	;; grep find
 	"rg" '(grep-find :which-key "Equivalent to grep -rn")
