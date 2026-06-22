@@ -85,6 +85,18 @@
 (add-hook 'minibuffer-exit-hook #'cfg/restore-garbage-collection-h)
 (setq garbage-collection-messages t)
 
+;; compilation mode
+
+
+;; When I use compilation mode, I would like it to switch windows automatically
+(defun pck/switch-to-grep-window (buffer status)							
+  (let ((win (get-buffer-window buffer)))									
+    (when win																
+      (select-window win))))												
+																			
+(add-hook 'compilation-finish-functions #'pck/switch-to-grep-window)		
+
+
 ;; dired
 
 (require 'dired-x)

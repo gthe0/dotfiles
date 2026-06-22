@@ -1,11 +1,6 @@
 ;; ======== Package Manager Settings ========
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("ublt" . "https://elpa.ubolonton.org/packages/") t)
-
-(setq package-native-compile t)
-(setq use-package-always-ensure t)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -18,6 +13,7 @@
 
 ;;; ======== Theme ========
 
+(use-package nerd-icons)
 (use-package doom-themes
   :ensure t
   :custom
@@ -168,6 +164,8 @@
 
 ;;; ======== General Mode  ========
 
+;; Add the hook to the compilation/grep finish alert sequence
+(add-hook 'compilation-finish-functions #'my/switch-to-grep-window)
 (use-package general
   :demand t
   :config
@@ -185,12 +183,13 @@
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
     "pf" 'projectile-find-file
-    "bb" 'buffer-menu
+	"d"  'dired-jump
+    "bi" 'ibuffer
     "bd" 'kill-this-buffer
     "bn" 'next-buffer
     "bp" 'previous-buffer
     "bx" 'kill-buffer-and-window
-	"rg" 'rgrep)
+	"rg" 'grep-find)
 
   (general-create-definer localleader-def
     :states '(normal motion emacs)
@@ -200,22 +199,21 @@
   (localleader-def "" '(:ignore t :wk "mode")))
 
 ;; Wanted to have Ex
-(evil-ex-define-cmd "Ex" 'dired)
+(evil-ex-define-cmd "Ex" 'dired-jump)
+
 
 ;; I am not sure how well it will integrate 
 ;; with the rest of the config, we ll see
 
 ;;; Treemacs
 
-(use-package nerd-icons)
-
 (use-package treemacs
   :defer 2
   :commands treemacs treemacs-find-file
   :general
   (leader-def
-    "d" 'treemacs
-    "ff" 'treemacs-find-file))
+    "tt" 'treemacs
+    "tf" 'treemacs-find-file))
 (use-package treemacs-evil
   :defer 1
   :after treemacs evil)
