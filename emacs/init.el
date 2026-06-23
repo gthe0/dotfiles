@@ -12,14 +12,20 @@
 (add-to-list 'load-path config-dir)
 
 ;; load files
-(require 'g-config)
-(require 'g-packages)
+(require 'config)
+(require 'packages)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(company-posframe company-prescient consult dashboard doom-themes
+					  evil-collection evil-commentary evil-multiedit
+					  evil-surround general marginalia mixed-pitch
+					  move-text multiple-cursors nerd-icons orderless
+					  projectile treemacs-evil undo-tree vertico vterm
+					  yasnippet yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

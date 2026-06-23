@@ -174,6 +174,7 @@
     "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
 	"ps" '(consult-grep :which-key "Project-wide grep-ing")  
 	"/"  '(consult-grep :which-key "Project-wide grep-ing")  
+	"pc" '(project-compile :which-key "Compile the project")  
 
 	;; buffer related keys
     "bi" '(ibuffer :which-key "Interactive Buffer Picker")
