@@ -172,12 +172,10 @@
 	
 	;; project specific
 	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
-	"ps" '(consult-grep :which-key "Project-wide grep-ing")  
-	"pc" '(project-compile :which-key "Compile the project")  
-	"pd" '(consult-flymake :which-key "Toggle Problem Pane")
+	"ps" '(project-find-regexp :which-key "Search inside project folder")
+	"pc" '(project-compile :which-key "Project Compile")
 
 	;; buffer related keys
-	"bi" '(ibuffer :which-key "Interactive Buffer Picker")
 	"bb" '(consult-buffer :which-key "Consult Interactive Buffer Picker ")
 	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
 	"bn" '(next-buffer :which-key "Go to next Buffer")
@@ -185,20 +183,15 @@
 
 	;; files and dired
 	"fr" '(consult-recent-file :which-key "Recent files")
-	"ff" '(find-file :which-key "Find File")
-	"."  '(find-file :which-key "Find File")
+	"ff"  '(find-file :which-key "[F]ind [F]ile")
 	
 	;; grep find
 	"rg" '(grep-find :which-key "Equivalent to grep -rn")
-	"/"  '(grep-find :which-key "Equivalent to grep -rn")  
+	"c"  '(compile :which-key "Compile")
 
 	;; toggle various options
-	"tp" '(consult-flymake :which-key "Toggle Problem Pane")
-	"fd" '(consult-flymake :which-key "Toggle Problem Pane")
+	"td" '(consult-flymake :which-key "Toggle Problem Pane")
 	"tt" '(treemacs :which-key "Toggle Treemacs")
-
-	;; qol features
-	":" '(execute-extended-command :which-key "M-x palette")
 
 	;; help
 	"hk"  '(describe-key :which-key "Help for key binding")
