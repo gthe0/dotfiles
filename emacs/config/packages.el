@@ -171,24 +171,26 @@
     "p" '(:ignore t :wk "project")
 	
 	;; project specific
-    "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
+	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
 	"ps" '(consult-grep :which-key "Project-wide grep-ing")  
-	"/"  '(consult-grep :which-key "Project-wide grep-ing")  
 	"pc" '(project-compile :which-key "Compile the project")  
+	"pd" '(consult-flymake :which-key "Toggle Problem Pane")
 
 	;; buffer related keys
-    "bi" '(ibuffer :which-key "Interactive Buffer Picker")
-    "bb" '(consult-buffer :which-key "Consult Interactive Buffer Picker ")
-    "bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
-    "bn" '(next-buffer :which-key "Go to next Buffer")
-    "bp" '(previous-buffer :which-key "Go to previous Buffer")
+	"bi" '(ibuffer :which-key "Interactive Buffer Picker")
+	"bb" '(consult-buffer :which-key "Consult Interactive Buffer Picker ")
+	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
+	"bn" '(next-buffer :which-key "Go to next Buffer")
+	"bp" '(previous-buffer :which-key "Go to previous Buffer")
 
 	;; files and dired
-    "fr"  '(consult-recent-file :which-key "Recent files")
+	"fr" '(consult-recent-file :which-key "Recent files")
+	"ff" '(find-file :which-key "Find File")
 	"."  '(find-file :which-key "Find File")
 	
 	;; grep find
 	"rg" '(grep-find :which-key "Equivalent to grep -rn")
+	"/"  '(grep-find :which-key "Equivalent to grep -rn")  
 
 	;; toggle various options
 	"tp" '(consult-flymake :which-key "Toggle Problem Pane")
