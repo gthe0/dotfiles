@@ -22,22 +22,8 @@
 
 (use-package nerd-icons)
 
-(use-package doom-themes
-  :custom
-  ;; Global settings (defaults)
-  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
-  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; for treemacs users
-  (doom-themes-treemacs-theme "doom-one") ; use "doom-colors" for less minimal icon theme
-  :config
-  (load-theme 'doom-one t)
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (nerd-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+(use-package vscode-dark-plus-theme
+  :config (load-theme 'vscode-dark-plus t))
 
 ;;; ======== Vertico Mode ========
 
@@ -89,7 +75,8 @@
   :config
   (global-company-mode 1)
   (with-eval-after-load 'evil
-	(define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)))
+	(define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)
+	(define-key minibuffer-local-map (kbd "C-w") #'evil-delete-backward-word)))
 
 (use-package company-prescient
   :defer 1
@@ -164,8 +151,8 @@
     :non-normal-prefix "C-SPC")
   (leader-def
     "" '(:ignore t :wk "leader")
-    "f" '(:ignore t :wk "file")
     "h" '(:ignore t :wk "help")
+    "f" '(:ignore t :wk "file")
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
@@ -174,20 +161,24 @@
 	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
 	"ps" '(project-find-regexp :which-key "Search inside project folder")
 	"pc" '(project-compile :which-key "Project Compile")
+	"p." '(project-dired :which-key "Open Dired in Project Root")
 
 	;; buffer related keys
-	"bb" '(consult-buffer :which-key "Consult Interactive Buffer Picker ")
+	"bi" '(ibuffer :which-key "Interactive Buffer")
+	"bb" '(ido-switch-buffer :which-key "Consult Interactive Buffer Picker ")
+	"bo" '(ido-switch-buffer-other-window :which-key "Open a new buffer in another frame")
 	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
 	"bn" '(next-buffer :which-key "Go to next Buffer")
 	"bp" '(previous-buffer :which-key "Go to previous Buffer")
 
 	;; files and dired
 	"fr" '(consult-recent-file :which-key "Recent files")
-	"ff"  '(find-file :which-key "[F]ind [F]ile")
+	"o" '(dired-jump :which-key "Dired")
 	
 	;; grep find
+	"."  '(find-file :which-key "Equivalent to grep -rn")
+	"/"  '(grep-find :which-key "Equivalent to grep -rn")
 	"rg" '(grep-find :which-key "Equivalent to grep -rn")
-	"c"  '(compile :which-key "Compile")
 
 	;; toggle various options
 	"td" '(consult-flymake :which-key "Toggle Problem Pane")

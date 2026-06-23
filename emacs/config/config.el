@@ -132,7 +132,6 @@
 	  help-window-select t)
 
 ;; Pair
-
 (require 'elec-pair)
 (electric-pair-mode 1)
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
