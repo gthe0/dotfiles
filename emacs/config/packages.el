@@ -87,7 +87,9 @@
 (use-package company
   :defer 1
   :config
-  (global-company-mode 1))
+  (global-company-mode 1)
+  (with-eval-after-load 'evil
+	(define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)))
 
 (use-package company-prescient
   :defer 1
@@ -124,6 +126,7 @@
         evil-respect-visual-line-mode t)
   :config
   ;; Wanted to have Ex
+  (evil-set-undo-system 'undo-redo)
   (evil-ex-define-cmd "Ex" 'dired-jump)
   (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
   (evil-define-key 'normal 'global (kbd "C-w o") 'toggle-delete-other-windows)
@@ -132,7 +135,10 @@
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (with-eval-after-load 'dired
+	(evil-collection-define-key 'normal
+	  'dired-mode-map "c" #'dired-create-empty-file)))
 
 (use-package evil-commentary
   :after evil
@@ -185,6 +191,7 @@
 
 	;; toggle various options
 	"tp" '(consult-flymake :which-key "Toggle Problem Pane")
+	"fd" '(consult-flymake :which-key "Toggle Problem Pane")
 	"tt" '(treemacs :which-key "Toggle Treemacs")
 
 	;; qol features
@@ -199,8 +206,9 @@
 	  :prefix "\\"
 	  "" '(:ignore t :wk "mode")))
 
-;; ======== Dashboard Launcher ========
+;; ======== Aesthetics ========
 
+;; dashboard for projects
 (use-package dashboard
   :ensure t
   :config
@@ -217,6 +225,7 @@
 
 ;; ======== Extra Minimal Utilities ========
 
+(use-package yasnippet-snippets)
 (use-package yasnippet
   :config (yas-global-mode 1))
 

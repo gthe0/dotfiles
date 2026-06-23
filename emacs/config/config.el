@@ -18,15 +18,16 @@
 
 ;; General Settings
 (setq-default inhibit-splash-screen t
-	      make-backup-files nil
-	      tab-width 4
-	      compilation-scroll-output t
-		  delete-selection-mode t
-		  use-short-answers t
-		  dired-kill-when-opening-new-dired-buffer t
-	      visible-bell (or (equal system-type 'windows-nt)
-			       (and (equal system-type 'gnu/linux)
-				    (getenv "WSLENV"))))
+			  make-backup-files nil
+			  create-lockfiles nil
+			  tab-width 4
+			  compilation-scroll-output t
+			  delete-selection-mode t
+			  use-short-answers t
+			  dired-kill-when-opening-new-dired-buffer t
+			  visible-bell (or (equal system-type 'windows-nt)
+							   (and (equal system-type 'gnu/linux)
+									(getenv "WSLENV"))))
 
 (setq set-mark-command-repeat-pop t)
 	
@@ -104,7 +105,6 @@
 (setq-default dired-dwim-target t)
 (setq dired-listing-switches "-alh")
 
-
 ;; Set UTF-8 by default 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -136,6 +136,9 @@
 (require 'elec-pair)
 (electric-pair-mode 1)
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
+;; Editor Config
+(editorconfig-mode 1)
 
 ;; To see if it loaded properly
 (provide 'config)
