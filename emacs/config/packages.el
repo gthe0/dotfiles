@@ -1,4 +1,4 @@
-;; ======== Package Manager Settings ========
+;;; ======== Package Manager Settings ========
 
 (require 'package)
 ;; Add standard package repositories so Emacs knows where to download things
@@ -21,7 +21,6 @@
 ;;; ======== Theme ========
 
 (use-package nerd-icons)
-
 (use-package vscode-dark-plus-theme
   :config (load-theme 'vscode-dark-plus t))
 
@@ -51,7 +50,7 @@
 
 (use-package move-text
   :bind
-  ("M-p" . move-text-up)
+  ("M-k" . move-text-up)
   ("M-n" . move-text-down))
 
 ;;; ======= Mixed Pitch Mode =======
@@ -100,7 +99,7 @@
 (use-package treemacs-evil
   :after treemacs evil)
 
-;;; ======== Evil Mode  ========						
+;;; ======== Evil Mode  ========
 
 (use-package evil
   :init
@@ -164,9 +163,9 @@
 	"p." '(project-dired :which-key "Open Dired in Project Root")
 
 	;; buffer related keys
-	"bi" '(ibuffer :which-key "Interactive Buffer")
-	"bb" '(ido-switch-buffer :which-key "Consult Interactive Buffer Picker ")
-	"bo" '(ido-switch-buffer-other-window :which-key "Open a new buffer in another frame")
+	"bi" '(ibuffer :which-key "Interactive Buffer Picker")
+	"bb" '(ido-switch-buffer :which-key "Ido Switch Buffer ")
+	"bo" '(ido-switch-buffer-other-window :which-key "Open Bother in a new Window")
 	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
 	"bn" '(next-buffer :which-key "Go to next Buffer")
 	"bp" '(previous-buffer :which-key "Go to previous Buffer")
@@ -174,20 +173,18 @@
 	;; files and dired
 	"fr" '(consult-recent-file :which-key "Recent files")
 	"o" '(dired-jump :which-key "Dired")
-	
+
 	;; grep find
 	"."  '(find-file :which-key "Equivalent to grep -rn")
 	"/"  '(grep-find :which-key "Equivalent to grep -rn")
-	"rg" '(grep-find :which-key "Equivalent to grep -rn")
+
+	;; ;; flymake goto prev/next error
+	;; "[d" '(flymake-goto-prev-error :which-key "Go to prev error")
+	;; "]d" '(flymake-goto-next-error :which-key "Go to next error")
 
 	;; toggle various options
 	"td" '(consult-flymake :which-key "Toggle Problem Pane")
-	"tt" '(treemacs :which-key "Toggle Treemacs")
-
-	;; help
-	"hk"  '(describe-key :which-key "Help for key binding")
-	"hf"  '(describe-function :which-key "Help for function")
-	"hv"  '(describe-variable :which-key "Help for variable"))
+	"tt" '(treemacs :which-key "Toggle Treemacs"))
 
 	(general-mmap
 	  :prefix "\\"
@@ -214,6 +211,9 @@
 
 (use-package yasnippet-snippets)
 (use-package yasnippet
-  :config (yas-global-mode 1))
+  :config
+  (yas-global-mode 1))
 
 (provide 'packages)
+
+;;; packages.el ends here
