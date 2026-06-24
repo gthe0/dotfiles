@@ -140,6 +140,7 @@
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
+    "r" '(:ignore t :wk "rename")
 	
 	;; project specific
 	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
@@ -158,6 +159,9 @@
 	;; files and dired
 	"fr" '(consult-recent-file :which-key "Recent files")
 	"o" '(dired-jump :which-key "Dired")
+
+	;; rename
+	"rb" '(rename-buffer :which-key "Rename Buffer")
 
 	;; grep find
 	"."  '(find-file :which-key "Equivalent to grep -rn")
