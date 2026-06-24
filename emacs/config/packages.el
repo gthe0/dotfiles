@@ -36,7 +36,7 @@
 ;; Smart fuzzy searching (type "pckg" to match "package.el")
 (use-package orderless
   :custom
-  (completion-styles '(orderless basic)))
+  (completion-styles '(orderless)))
 
 ;; Beautiful metadata columns (gives descriptions next to choices)
 (use-package marginalia
@@ -45,13 +45,6 @@
 
 ;; Navigation search utilities (The fast modern alternative to Helm features)
 (use-package consult)
-
-;;; ======== Move Text ========
-
-(use-package move-text
-  :bind
-  ("M-k" . move-text-up)
-  ("M-n" . move-text-down))
 
 ;;; ======= Mixed Pitch Mode =======
 
@@ -90,14 +83,6 @@
   (company-posframe-quickhelp-delay nil)
   :config
   (company-posframe-mode 1))
-
-;;; ======== Treemacs ========
-
-(use-package treemacs
-  :commands treemacs)
-
-(use-package treemacs-evil
-  :after treemacs evil)
 
 ;;; ======== Evil Mode  ========
 
@@ -163,7 +148,7 @@
 	"p." '(project-dired :which-key "Open Dired in Project Root")
 
 	;; buffer related keys
-	"bi" '(ibuffer :which-key "Interactive Buffer Picker")
+	"bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
 	"bb" '(ido-switch-buffer :which-key "Ido Switch Buffer ")
 	"bo" '(ido-switch-buffer-other-window :which-key "Open Bother in a new Window")
 	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
@@ -178,13 +163,16 @@
 	"."  '(find-file :which-key "Equivalent to grep -rn")
 	"/"  '(grep-find :which-key "Equivalent to grep -rn")
 
+	;; Quality of life features
+	;; My thumb hurt whenever I tried to acces M-x
+	"x" '(execute-extended-command :which-key "M-x")
+
 	;; ;; flymake goto prev/next error
 	;; "[d" '(flymake-goto-prev-error :which-key "Go to prev error")
 	;; "]d" '(flymake-goto-next-error :which-key "Go to next error")
 
 	;; toggle various options
-	"td" '(consult-flymake :which-key "Toggle Problem Pane")
-	"tt" '(treemacs :which-key "Toggle Treemacs"))
+	"td" '(consult-flymake :which-key "Toggle Problem Pane"))
 
 	(general-mmap
 	  :prefix "\\"
