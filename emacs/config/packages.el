@@ -33,10 +33,13 @@
   ;; Keep your interface clean and compact (shows 10 results max)
   (setq vertico-count 10))
 
-;; Smart fuzzy searching (type "pckg" to match "package.el")
 (use-package orderless
-  :custom
-  (completion-styles '(orderless)))
+  :init
+  ;; Configure orderless as the default completion style
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        ;; This tells Emacs to allow orderless components separated by spaces
+        completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; Beautiful metadata columns (gives descriptions next to choices)
 (use-package marginalia
@@ -84,6 +87,9 @@
   :config
   (company-posframe-mode 1))
 
+;;; ======== Find replacement ========
+(use-package find-lisp :ensure nil)
+
 ;;; ======== Evil Mode  ========
 
 (use-package evil
@@ -99,8 +105,12 @@
   ;; Wanted to have Ex
   (evil-set-undo-system 'undo-redo)
   (evil-ex-define-cmd "Ex" 'dired-jump)
+  ;; to not type x accidentaly and close the buffer
+  (evil-ex-define-cmd "ex" 'evil-edit)
   (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
   (evil-define-key 'normal 'global (kbd "C-w o") 'toggle-delete-other-windows)
+  (evil-define-key 'normal 'global (kbd "[d") 'flymake-goto-prev-error)
+  (evil-define-key 'normal 'global (kbd "]d") 'flymake-goto-next-error)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -140,43 +150,36 @@
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
-    "r" '(:ignore t :wk "rename")
 	
 	;; project specific
 	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
-	"ps" '(project-find-regexp :which-key "Search inside project folder")
+	"pd" '(project-find-dir :which-key "Fuzzy Find Dir inside Project")
+	"pp" '(project-switch-project :which-key "Switch Project Folder")
 	"pc" '(project-compile :which-key "Project Compile")
 	"p." '(project-dired :which-key "Open Dired in Project Root")
 
 	;; buffer related keys
 	"bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
-	"bb" '(ido-switch-buffer :which-key "Ido Switch Buffer ")
-	"bo" '(ido-switch-buffer-other-window :which-key "Open Bother in a new Window")
-	"bk" '(kill-this-buffer  :which-key "Kill Current Buffer")
-	"bn" '(next-buffer :which-key "Go to next Buffer")
-	"bp" '(previous-buffer :which-key "Go to previous Buffer")
+	"bb" '(consult-buffer :which-key "Simple Buffer Jump")
+	"bo" '(consult-buffer-other-window :which-key "Open Buffer in a new Window using Consult")
+	"br" '(rename-buffer :which-key "Rename Buffer")
+
+	;; Note(gtheo): I may change it to fd or find or whatever. Don't know yet.
+	"fd" '(consult-fd :which-key "Consult Find File")
 
 	;; files and dired
 	"fr" '(consult-recent-file :which-key "Recent files")
 	"o" '(dired-jump :which-key "Dired")
 
-	;; rename
-	"rb" '(rename-buffer :which-key "Rename Buffer")
-
 	;; grep find
-	"."  '(find-file :which-key "Equivalent to grep -rn")
+	"."  '(find-file :which-key "Equivalent to :e command")
 	"/"  '(grep-find :which-key "Equivalent to grep -rn")
 
+	;; toggle various options
+	"td" '(consult-flymake :which-key "Toggle Problem Pane")
 	;; Quality of life features
 	;; My thumb hurt whenever I tried to acces M-x
-	"x" '(execute-extended-command :which-key "M-x")
-
-	;; ;; flymake goto prev/next error
-	;; "[d" '(flymake-goto-prev-error :which-key "Go to prev error")
-	;; "]d" '(flymake-goto-next-error :which-key "Go to next error")
-
-	;; toggle various options
-	"td" '(consult-flymake :which-key "Toggle Problem Pane"))
+	"SPC" '(execute-extended-command :which-key "M-x"))
 
 	(general-mmap
 	  :prefix "\\"
@@ -191,7 +194,7 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents  . 5) (projects . 5))
         dashboard-banner-logo-title "Select Project"
-        dashboard-startup-banner 'official
+        dashboard-startup-banner 'logo-ansi-256color
         dashboard-center-content t
         dashboard-set-heading-icons t
         dashboard-set-file-icons t

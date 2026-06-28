@@ -96,16 +96,6 @@
 
 (add-hook 'compilation-finish-functions #'pck/switch-to-grep-window)		
 
-;; Change the grep-find with findstr in windows 
-(when (eq system-type 'windows-nt)
-  (with-eval-after-load 'grep
-	(setq grep-save-buffers 'save)
-	(grep-apply-setting 'grep-find-command
-						'("findstr /S /N /I /R \"\" *.*" . 22))))
-
-
-
-
 ;; dired
 
 (require 'dired-x)
@@ -144,9 +134,6 @@
 (require 'elec-pair)
 (electric-pair-mode 1)
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
-
-;; Editor Config
-(editorconfig-mode 1)
 
 ;; To see if it loaded properly
 (provide 'config)
