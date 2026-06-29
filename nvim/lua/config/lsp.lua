@@ -38,7 +38,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             -- defaults:
             -- https://neovim.io/doc/user/news-0.11.html#_defaults
-
             map("gl", vim.diagnostic.open_float, "Open Diagnostic Float")
             map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
             map("<leader>la", vim.lsp.buf.code_action, "Code Action")
@@ -50,6 +49,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             map("gD", vim.lsp.buf.declaration, "LSP goto declaration")
             map("gi", vim.lsp.buf.implementation, "LSP show implemenations")
             map("gr", vim.lsp.buf.references, "LSP show references")
+
+            -- These are not the best keys. Probably they need to change
             map("<leader>t", vim.lsp.buf.type_definition, "LSP show type definitions")
             map("<leader>rn", vim.lsp.buf.rename, "LSP Rename")
             map("<leader>d", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
