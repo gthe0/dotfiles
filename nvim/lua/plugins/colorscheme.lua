@@ -1,12 +1,11 @@
-return
-{
+-- Install the theme
+vim.pack.add({
     {
-        "Mofiqul/vscode.nvim",
-        lazy = false,
-
-        config = function()
-                require("vscode").setup()
-                require("vscode").load("dark")
-        end
+        src = 'https://github.com/Mofiqul/vscode.nvim'
     }
-}
+})
+
+-- Load it
+require("vscode").setup()
+require("vscode").load("dark")
+

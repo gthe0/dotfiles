@@ -11,3 +11,4 @@
 
 -- Loading default config
 require("config")
+require("plugins")

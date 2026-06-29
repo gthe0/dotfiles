@@ -1,0 +1,8 @@
+require("plugins.utils")
+require("plugins.colorscheme")
+require("plugins.conform")
+require("plugins.mason")
+require("plugins.telescope")
+require("plugins.treesitter")
+require("plugins.autopairs")
+require("plugins.snippets")

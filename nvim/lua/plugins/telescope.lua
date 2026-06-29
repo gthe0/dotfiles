@@ -1,39 +1,27 @@
-return {
+vim.pack.add ({
     -- Telescope Plugin
-    "nvim-telescope/telescope.nvim",
+    'https://github.com/nvim-telescope/telescope.nvim',
+})
 
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install'
-        },
-    },
+-- Load telescope extension first...
+require('telescope').setup({ })
 
-    -- Telescope configuration
-    config = function()
+-- Telescope keybinds
+local keymap = vim.keymap
+local builtin = require('telescope.builtin')
 
-        -- Load telescope extension first...
-        require('telescope').setup({ })
+-- File pickers
+keymap.set('n', '<leader>pf', builtin.find_files, { desc = "File Picker"})
+keymap.set('n', '<leader>ff', function()
+    builtin.find_files({ jump_type = "vsplit" })
+end, { desc = "Find Files in Vertical Split" })
 
-        -- Telescope keybinds
-        local keymap = vim.keymap
-        local builtin = require('telescope.builtin')
+-- Diagnostics and Search
+keymap.set('n', '<leader>fd', builtin.diagnostics, {})
+keymap.set('n', '<leader>/' , builtin.live_grep, {})
 
-        -- File pickers
-        keymap.set('n', '<leader>pf', builtin.find_files, { desc = "File Picker"})
-        keymap.set('n', '<leader>ff', function() 
-            builtin.find_files({ jump_type = "vsplit" }) 
-        end, { desc = "Find Files in Vertical Split" })
-
-        -- Diagnostics and Search
-        keymap.set('n', '<leader>fd', builtin.diagnostics, {})
-        keymap.set('n', '<leader>/' , builtin., {})
-
-        -- Buffer related stuff
-        keymap.set('n', '<leader>bb', builtin.buffers, { desc = "Buffer Picker"})
-        keymap.set('n', '<leader>bo', function() 
-            builtin.buffers({ jump_type = "vsplit" }) 
-        end, { desc = "Buffers in Vertical Split" })
-    end
-}
+-- Buffer related stuff
+keymap.set('n', '<leader>bb', builtin.buffers, { desc = "Buffer Picker"})
+keymap.set('n', '<leader>bo', function()
+    builtin.buffers({ jump_type = "vsplit" })
+end, { desc = "Buffers in Vertical Split" })

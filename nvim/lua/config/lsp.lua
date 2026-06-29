@@ -23,10 +23,6 @@ vim.diagnostic.config({
     }
 })
 
--- Go to prev/next diagnostics and open a float
-vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "previous diagnostics" })
-vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count =  1, float = true }) end, { desc = "next diagnostics" })
-
 -- Generic lsp behaviour
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -45,7 +41,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             map("gl", vim.diagnostic.open_float, "Open Diagnostic Float")
             map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
-            map("gD", vim.lsp.buf.declaration, "Goto Declaration")
             map("<leader>la", vim.lsp.buf.code_action, "Code Action")
             map("<leader>lr", vim.lsp.buf.rename, "Rename all references")
             map("<leader>lf", vim.lsp.buf.format, "Format")
