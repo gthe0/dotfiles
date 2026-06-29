@@ -70,8 +70,8 @@
   :config
   (global-company-mode 1)
   (with-eval-after-load 'evil
-	(define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)
-	(define-key minibuffer-local-map (kbd "C-w") #'evil-delete-backward-word)))
+    (define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)
+    (define-key minibuffer-local-map (kbd "C-w") #'evil-delete-backward-word)))
 
 (use-package company-prescient
   :defer 1
@@ -86,9 +86,6 @@
   (company-posframe-quickhelp-delay nil)
   :config
   (company-posframe-mode 1))
-
-;;; ======== Find replacement ========
-(use-package find-lisp :ensure nil)
 
 ;;; ======== Evil Mode  ========
 
@@ -107,8 +104,8 @@
   (evil-ex-define-cmd "Ex" 'dired-jump)
   ;; to not type x accidentaly and close the buffer
   (evil-ex-define-cmd "ex" 'evil-edit)
-  (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
   (evil-define-key 'normal 'global (kbd "C-w o") 'toggle-delete-other-windows)
+  (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
   (evil-define-key 'normal 'global (kbd "[d") 'flymake-goto-prev-error)
   (evil-define-key 'normal 'global (kbd "]d") 'flymake-goto-next-error)
   (evil-mode 1))
@@ -116,10 +113,7 @@
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init)
-  (with-eval-after-load 'dired
-	(evil-collection-define-key 'normal
-	  'dired-mode-map "c" #'dired-create-empty-file)))
+  (evil-collection-init))
 
 (use-package evil-commentary
   :after evil
@@ -132,7 +126,40 @@
   :config
   (evil-multiedit-default-keybinds))
 
-;; general
+;; ========= Tree File Explorer =======
+(use-package treemacs
+  :defer t
+  :config
+  (setq treemacs-width 30
+        treemacs-indentation 2
+        treemacs-collapse-dirs 3                    ; Collapses nested empty dirs like VS Code
+        treemacs-show-hidden-files t
+	treemacs-is-never-other-window t 
+        treemacs-silent-refresh t                   ; Stop spamming minibar messages
+        treemacs-sorting 'alphabetic-asc
+        treemacs-project-follow-cleanup t          ; Closes other projects when switching to focus on the current one
+        treemacs-file-event-delay 1000)
+
+  ;; Essential behaviors for that fluid VS Code feel
+  (treemacs-follow-mode t)                          ; Highlights active file in the tree automatically
+  (treemacs-filewatch-mode t)                        ; Auto-refresh tree when files change externally
+  (treemacs-git-mode 'deferred))                    ; Colored git status indicators without blocking Emacs UI
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :config
+  ;; Making h and l behave like VS Code tree mechanics:
+  ;; h: Collapse directory under cursor. If already collapsed, move up to parent directory.
+  ;; l: Expand directory under cursor. If it's a file, open it.
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "h") #'treemacs-COLLAPSE-action)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-RET-action)
+  
+  ;; Intuitive UI additions
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "C-h") #'window-left)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "C-l") #'window-right))
+
+
+;; ======== General ========
 
 (use-package general
   :demand t
@@ -150,57 +177,41 @@
     "t" '(:ignore t :wk "toggle")
     "b" '(:ignore t :wk "buffer")
     "p" '(:ignore t :wk "project")
-	
-	;; project specific
-	"pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
-	"pd" '(project-find-dir :which-key "Fuzzy Find Dir inside Project")
-	"pp" '(project-switch-project :which-key "Switch Project Folder")
-	"pc" '(project-compile :which-key "Project Compile")
-	"p." '(project-dired :which-key "Open Dired in Project Root")
+    
+    ;; project specific
+    "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
+    "pd" '(project-find-dir :which-key "Fuzzy Find Dir inside Project")
+    "pp" '(project-switch-project :which-key "Switch Project Folder")
+    "pc" '(project-compile :which-key "Project Compile")
+    "p." '(project-dired :which-key "Open Dired in Project Root")
 
-	;; buffer related keys
-	"bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
-	"bb" '(consult-buffer :which-key "Simple Buffer Jump")
-	"bo" '(consult-buffer-other-window :which-key "Open Buffer in a new Window using Consult")
-	"br" '(rename-buffer :which-key "Rename Buffer")
+    ;; buffer related keys
+    "bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
+    "bb" '(consult-buffer :which-key "Simple Buffer Jump")
+    "bo" '(consult-buffer-other-window :which-key "Open Buffer in a new Window using Consult")
+    "br" '(rename-buffer :which-key "Rename Buffer")
 
-	;; Note(gtheo): I may change it to fd or find or whatever. Don't know yet.
-	"fd" '(consult-fd :which-key "Consult Find File")
+    ;; Note(gtheo): I may change it to fd or find or whatever. Don't know yet.
+    "fd" '(consult-fd :which-key "Consult Find File")
 
-	;; files and dired
-	"fr" '(consult-recent-file :which-key "Recent files")
-	"o" '(dired-jump :which-key "Dired")
+    ;; files and dired
+    "fr" '(consult-recent-file :which-key "Recent files")
+    ";" '(dired-jump :which-key "Dired")
 
-	;; grep find
-	"."  '(find-file :which-key "Equivalent to :e command")
-	"/"  '(grep-find :which-key "Equivalent to grep -rn")
+    ;; grep find
+    "."  '(find-file :which-key "Equivalent to :e command")
+    "/"  '(grep-find :which-key "Equivalent to grep -rn")
 
-	;; toggle various options
-	"td" '(consult-flymake :which-key "Toggle Problem Pane")
-	;; Quality of life features
-	;; My thumb hurt whenever I tried to acces M-x
-	"SPC" '(execute-extended-command :which-key "M-x"))
+    ;; toggle various options
+    "td" '(consult-flymake :which-key "Toggle Problem Pane")
+    "o"  '(treemacs :which-key "Toggle Tree File Explorer")
+    ;; Quality of life features
+    ;; My thumb hurt whenever I tried to acces M-x
+    "SPC" '(execute-extended-command :which-key "M-x"))
 
-	(general-mmap
-	  :prefix "\\"
-	  "" '(:ignore t :wk "mode")))
-
-;; ======== Aesthetics ========
-
-;; dashboard for projects
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 5) (projects . 5))
-        dashboard-banner-logo-title "Select Project"
-        dashboard-startup-banner 'logo-ansi-256color
-        dashboard-center-content t
-        dashboard-set-heading-icons t
-        dashboard-set-file-icons t
-        dashboard-navigation-cycle t)
-  (with-eval-after-load 'evil
-    (evil-make-overriding-map dashboard-mode-map 'normal)))
+  (general-mmap
+    :prefix "\\"
+    "" '(:ignore t :wk "mode")))
 
 ;; ======== Extra Minimal Utilities ========
 

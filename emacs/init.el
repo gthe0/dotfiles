@@ -14,18 +14,20 @@
 ;; load files
 (require 'config)
 (require 'packages)
+(require 'languages)
+(require 'platform)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-posframe company-prescient consult dashboard doom-themes
-					  evil-collection evil-commentary evil-multiedit
-					  evil-surround general marginalia mixed-pitch
-					  move-text multiple-cursors nerd-icons orderless
-					  projectile treemacs-evil undo-tree vertico vterm
-					  yasnippet yasnippet-snippets)))
+   '(ace-window async cfrs company-posframe company-prescient consult
+		dashboard evil-collection evil-commentary
+		evil-multiedit general ht hydra marginalia mixed-pitch
+		nerd-icons orderless pfuture treemacs treemacs-evil
+		vertico vscode-dark-plus-theme yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
