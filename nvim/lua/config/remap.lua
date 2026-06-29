@@ -16,3 +16,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 -- Yank to clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Create a vertical split
+vim.keymap.set("n", "<leader>v", ":vsplit")
