@@ -6,10 +6,6 @@
 
 local opt = vim.opt
 
--- Leader key
-vim.g.mapleader = " "
-vim.g.localleader = "\\"
-
 -- Line enumeration
 opt.number = true -- Line number
 opt.relativenumber = true -- Set relative numbers on
