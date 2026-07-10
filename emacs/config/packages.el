@@ -179,8 +179,9 @@
     "p" '(:ignore t :wk "project")
     
     ;; project specific
+    "pt" '(treemacs :which-key "Toggle Tree File Explorer")
     "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
-    "pd" '(project-find-dir :which-key "Fuzzy Find Dir inside Project")
+    "pd" '(consult-flymake :which-key "Toggle Problem Pane")
     "pp" '(project-switch-project :which-key "Switch Project Folder")
     "pc" '(project-compile :which-key "Project Compile")
     "p." '(project-dired :which-key "Open Dired in Project Root")
@@ -189,22 +190,22 @@
     "bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
     "bb" '(consult-buffer :which-key "Simple Buffer Jump")
     "bo" '(consult-buffer-other-window :which-key "Open Buffer in a new Window using Consult")
-    "br" '(rename-buffer :which-key "Rename Buffer")
-
-    ;; Note(gtheo): I may change it to fd or find or whatever. Don't know yet.
-    "fd" '(consult-fd :which-key "Consult Find File")
 
     ;; files and dired
     "fr" '(consult-recent-file :which-key "Recent files")
-    ";" '(dired-jump :which-key "Dired")
+    "ff" '(find-file :which-key "Equivalent to :e command")
+    "fo" '(find-file-other-window :which-key "Open File in Vertical Split")
 
     ;; grep find
-    "."  '(find-file :which-key "Equivalent to :e command")
     "/"  '(grep-find :which-key "Equivalent to grep -rn")
+    "rg" '(grep-find :which-key "Equivalent to grep -rn")
+    "."  '(find-file :which-key "Equivalent to :e command")
+    ";"  '(dired-jump :which-key "Dired")
+    "o"  '(dired-jump-other-window :which-key "Dired")
 
     ;; toggle various options
     "td" '(consult-flymake :which-key "Toggle Problem Pane")
-    "o"  '(treemacs :which-key "Toggle Tree File Explorer")
+
     ;; Quality of life features
     ;; My thumb hurt whenever I tried to acces M-x
     "SPC" '(execute-extended-command :which-key "M-x"))

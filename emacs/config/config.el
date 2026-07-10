@@ -1,4 +1,7 @@
 ;;; config.el --- Main Configuration -*- lexical-binding: t -*-
+;;; Commentary:
+
+;;; Code:
 
 ;;; ======== Startup & Memory Restoration ========
 
@@ -27,15 +30,17 @@
 (global-display-line-numbers-mode 1)
 (column-number-mode 1)
 
-;; Show matching parenthesis 
+;; Show matching parenthesis
 (show-paren-mode 1)
 
 ;; General Settings
 (setq-default make-backup-files nil
-			  create-lockfiles nil
-			  compilation-scroll-output t
-			  delete-selection-mode t
-			  use-short-answers t)
+		create-lockfiles nil
+		compilation-scroll-output t
+		delete-selection-mode t
+		tab-width 4
+		indent-tabs-mode nil
+		use-short-answers t)
 
 (setq set-mark-command-repeat-pop t)
 	
@@ -120,6 +125,9 @@
 (require 'elec-pair)
 (electric-pair-mode 1)
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
+;;; ======== recent files mode ========
+(recentf-mode 1)
 
 ;; To see if it loaded properly
 (provide 'config)

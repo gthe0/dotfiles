@@ -12,8 +12,7 @@
       '((vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)
         (tool-bar-lines . 0)
-        (menu-bar-lines . 0)
-        (background-color . "#1e1e1e"))) ; Match dark theme background to stop white flashes
+        (menu-bar-lines . 0))) ; Match dark theme background to stop white flashes
 
 (setq default-frame-alist initial-frame-alist)
 
@@ -25,10 +24,11 @@
       ;; package related settings
       package-enable-at-startup t
       package-quickstart t
-      
-
       ;; Stop the ringing
       ring-bull-function #'ignore)
+
+;; Stop screan from flashing since I use a dark mode
+(add-to-list 'initial-frame-alist '(background-color . "#0d0d0ea9"))
 
 ;; 4. File-name Handler Deferral (Massive Startup Boost)
 (defvar cfg/saved-file-name-handler-alist file-name-handler-alist)
@@ -40,4 +40,3 @@
 (defvar cfg/gc-cons-threshold (* 16 1024 1024))
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6)
-
