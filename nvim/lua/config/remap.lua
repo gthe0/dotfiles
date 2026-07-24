@@ -23,3 +23,10 @@ vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
 -- Go to prev/next diagnostics and open a float
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "previous diagnostics" })
 vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count =  1, float = true }) end, { desc = "next diagnostics" })
+
+-- One shortcut
+vim.keymap.set({"n","v","i"}, "<S-F8>", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "previous diagnostics" })
+vim.keymap.set({"n","v","i"}, "<F8>",   function() vim.diagnostic.jump({ count =  1, float = true }) end, { desc = "next diagnostics" })
+
+-- Open file manager
+vim.keymap.set("n", "<leader>o", ":Ex<CR>", { desc = "Open File Manager"})

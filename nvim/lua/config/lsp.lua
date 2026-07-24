@@ -6,11 +6,11 @@ vim.lsp.enable({
     "clangd",
     "cmake",
     "glslls",
-    "lua_ls",
     "vimls",
+    "jdtls",
     "bashls",
-    "basedpyright",
-    "jdtls"
+    "lua_ls",
+    "basedpyright"
 })
 
 -- nvim diagnostics enable
@@ -55,6 +55,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             map("<leader>rn", vim.lsp.buf.rename, "LSP Rename")
             map("<leader>d", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
 
+            -- Better to have 1 button shortcuts
+            vim.keymap.set({"n", "i", "v"}, "<F2>", vim.lsp.buf.rename, { desc = "LSP Rename"})
         end
 
         -- Enable auto-completion.

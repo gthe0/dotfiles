@@ -26,14 +26,15 @@ local function with_vsplit(picker_func, opts)
 end
 
 -- File pickers
-keymap.set('n', '<leader><leader>', builtin.find_files, { desc = "File Picker" })
 keymap.set('n', '<leader>pf',       builtin.find_files, { desc = "File Picker" })
+keymap.set('n', '<leader>ff',       builtin.find_files, { desc = "File Picker" })
 keymap.set('n', '<leader>fr',       builtin.oldfiles, { desc = "Find recent Files" })
 keymap.set('n', '<leader>fo',       with_vsplit(builtin.find_files), { desc = "Open File in Vertical Split" })
 
 -- Diagnostics and Search
 keymap.set('n', '<leader>fd', builtin.diagnostics, {})
-keymap.set('n', '<leader>/', builtin.live_grep, {})
+keymap.set('n', '<leader>/',  builtin.live_grep, {})
+keymap.set('n', '<leader>rg', builtin.live_grep, {})
 
 -- Buffer related stuff
 keymap.set('n', '<leader>bb', builtin.buffers, { desc = "Buffer Picker" })
