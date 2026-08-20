@@ -28,9 +28,9 @@ opt.winminwidth = 5 -- Minimum Window Width
 
 -- Tab Options
 opt.expandtab = true -- Use Spaces on pressing Tab key
-opt.softtabstop = 4 -- Makes the tab be 4 spaces long
-opt.shiftwidth = 4
-opt.tabstop = 4
+opt.softtabstop = 8 -- Makes the tab be 8 spaces long
+opt.shiftwidth = 8
+opt.tabstop = 8
 
 -- WildMenu Options
 opt.wildmode = "full:list,full" -- Better tab completion

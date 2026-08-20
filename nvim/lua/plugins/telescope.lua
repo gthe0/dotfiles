@@ -34,7 +34,6 @@ keymap.set('n', '<leader>fo',       with_vsplit(builtin.find_files), { desc = "O
 -- Diagnostics and Search
 keymap.set('n', '<leader>fd', builtin.diagnostics, {})
 keymap.set('n', '<leader>/',  builtin.live_grep, {})
-keymap.set('n', '<leader>rg', builtin.live_grep, {})
 
 -- Buffer related stuff
 keymap.set('n', '<leader>bb', builtin.buffers, { desc = "Buffer Picker" })

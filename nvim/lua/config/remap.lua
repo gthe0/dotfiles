@@ -18,7 +18,7 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Create a vertical split
-vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
+vim.keymap.set("n", "<leader>vs", ":vsplit<CR>")
 
 -- Go to prev/next diagnostics and open a float
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "previous diagnostics" })

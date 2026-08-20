@@ -8,5 +8,4 @@ require("plugins.autopairs")
 require("plugins.snippets")
 require("plugins.surround")
 require("plugins.filesystem")
-require("plugins.multiple_cursors")
 
