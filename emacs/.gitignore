@@ -1,10 +1,2 @@
-# Only track emacs configuration files
+*.elc
 
-*
-
-!*.el
-!/config/config.el
-!/config/packages.el
-!/config
-
-!.gitignore

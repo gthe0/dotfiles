@@ -1,226 +1,104 @@
-;;; ======== Package Manager Settings ========
+;;; packages.el --- Package setup for Emacs 31.1 -*- lexical-binding: t; -*-
+
+;;; Commentary:
+;; Package bootstrap for the configuration.
+;;
+;; External packages are installed automatically on first startup.
+;; Built-in Emacs 31.1 functionality is NOT installed through package.el.
+;;
+;; External packages used by the configuration:
+;;   vertico     - minibuffer completion UI
+;;   orderless   - flexible completion matching
+;;   marginalia  - minibuffer annotations
+;;   consult     - enhanced search/navigation commands
+;;   dirvish     - modern Dired interface
+;;
+;; Optional:
+;;   apheleia    - asynchronous formatting
+;;
+;; Modus themes, Eglot, Flymake, Project, Xref, Dired/Wdired,
+;; compilation, Eshell, Tree-sitter modes and native completion are
+;; supplied by Emacs 31.1 itself.
+
+;;; Code:
 
 (require 'package)
-;; Add standard package repositories so Emacs knows where to download things
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa"  . "https://elpa.gnu.org/packages/")))
 
+;; ---------------------------------------------------------------------------
+;; Package archives
+;; ---------------------------------------------------------------------------
+
+(setq package-archives
+      '(("gnu"    . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa-stable"  . "https://stable.melpa.org/packages/")))
+
+;; Do not call package-refresh-contents on every startup.
 (package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (message "Refreshing contents...")
-  (unless package-archive-contents (package-refresh-contents))
-  (package-install 'use-package))
+;; ---------------------------------------------------------------------------
+;; Required external packages
+;; ---------------------------------------------------------------------------
 
-(eval-when-compile
-  (require 'use-package))
+(defconst my/required-packages
+  '(vertico
+    orderless
+    marginalia
+    consult
+    dirvish)
+  "Packages required by the configuration.")
 
-;; Ensure that everything is installed
-(setq use-package-always-ensure t)
+(defconst my/optional-packages
+  '(apheleia)
+  "Packages that may be installed for optional functionality.")
 
-;;; ======== Theme ========
+(defun my/package-refresh-contents-if-needed ()
+  "Refresh package metadata if it is not available."
+  (unless package-archive-contents
+    (message "Refreshing package contents...")
+    (package-refresh-contents)))
 
-(use-package nerd-icons)
-(use-package vscode-dark-plus-theme
-  :config (load-theme 'vscode-dark-plus t))
+(defun my/ensure-package-installed (package)
+  "Install PACKAGE if it is not already installed."
+  (unless (package-installed-p package)
+    (my/package-refresh-contents-if-needed)
+    (condition-case err
+        (progn
+          (message "Installing package: %s" package)
+          (package-install package)
+          (message "Installed package: %s" package))
+      (error
+       (error "Could not install package %s: %s"
+              package
+              (error-message-string err))))))
 
-;;; ======== Vertico Mode ========
+;; Install only packages that are actually required.
+(dolist (package my/required-packages)
+  (my/ensure-package-installed package))
 
-(use-package vertico
-  :init
-  (vertico-mode 1)
-  :config
-  ;; Keep your interface clean and compact (shows 10 results max)
-  (setq vertico-count 10))
+;; Package configuration
 
-(use-package orderless
-  :init
-  ;; Configure orderless as the default completion style
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        ;; This tells Emacs to allow orderless components separated by spaces
-        completion-category-overrides '((file (styles basic partial-completion)))))
+(require 'vertico)
+(vertico-mode 1)
 
-;; Beautiful metadata columns (gives descriptions next to choices)
-(use-package marginalia
-  :init
-  (marginalia-mode 1))
+(require 'orderless)
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides
+      '((file (styles partial-completion))))
 
-;; Navigation search utilities (The fast modern alternative to Helm features)
-(use-package consult)
+(require 'marginalia)
+(marginalia-mode 1)
 
-;;; ======= Mixed Pitch Mode =======
+(require 'consult)
 
-;; Used for having proportional fonts to display text that isn't code
-(use-package mixed-pitch
-  :hook
-  (text-mode . mixed-pitch-mode))
+(require 'dirvish)
+(dirvish-override-dired-mode)
 
-;;; ======== Company Mode ========
+;; Optional packages
 
-;; The standard dropdown as-you-type menu of modern IDEs
-
-(use-package prescient
-  :defer 1
-  :config
-  (prescient-persist-mode 1))
-
-(use-package company
-  :defer 1
-  :config
-  (global-company-mode 1)
-  (with-eval-after-load 'evil
-    (define-key company-active-map (kbd "C-w") #'evil-delete-backward-word)
-    (define-key minibuffer-local-map (kbd "C-w") #'evil-delete-backward-word)))
-
-(use-package company-prescient
-  :defer 1
-  :after company prescient
-  :config
-  (company-prescient-mode 1))
-
-(use-package company-posframe
-  :defer 1
-  :after company
-  :custom
-  (company-posframe-quickhelp-delay nil)
-  :config
-  (company-posframe-mode 1))
-
-;;; ======== Evil Mode  ========
-
-(use-package evil
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-want-C-u-scroll t
-        evil-want-Y-yank-to-eol t
-        evil-split-window-below t
-        evil-vsplit-window-right t
-        evil-respect-visual-line-mode t)
-  :config
-  ;; Wanted to have Ex
-  (evil-set-undo-system 'undo-redo)
-  (evil-ex-define-cmd "Ex" 'dired-jump)
-  ;; to not type x accidentaly and close the buffer
-  (evil-ex-define-cmd "ex" 'evil-edit)
-  (evil-define-key 'normal 'global (kbd "C-w o") 'toggle-delete-other-windows)
-  (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
-  (evil-define-key 'normal 'global (kbd "[d") 'flymake-goto-prev-error)
-  (evil-define-key 'normal 'global (kbd "]d") 'flymake-goto-next-error)
-  (evil-mode 1))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-
-(use-package evil-commentary
-  :after evil
-  :config
-  (evil-commentary-mode 1))
-
-;; Vim-style multiple cursors (Alt+D to mark next match)
-(use-package evil-multiedit
-  :after evil
-  :config
-  (evil-multiedit-default-keybinds))
-
-;; ========= Tree File Explorer =======
-(use-package treemacs
-  :defer t
-  :config
-  (setq treemacs-width 30
-        treemacs-indentation 2
-        treemacs-collapse-dirs 3                    ; Collapses nested empty dirs like VS Code
-        treemacs-show-hidden-files t
-	treemacs-is-never-other-window t 
-        treemacs-silent-refresh t                   ; Stop spamming minibar messages
-        treemacs-sorting 'alphabetic-asc
-        treemacs-project-follow-cleanup t          ; Closes other projects when switching to focus on the current one
-        treemacs-file-event-delay 1000)
-
-  ;; Essential behaviors for that fluid VS Code feel
-  (treemacs-follow-mode t)                          ; Highlights active file in the tree automatically
-  (treemacs-filewatch-mode t)                        ; Auto-refresh tree when files change externally
-  (treemacs-git-mode 'deferred))                    ; Colored git status indicators without blocking Emacs UI
-
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :config
-  ;; Making h and l behave like VS Code tree mechanics:
-  ;; h: Collapse directory under cursor. If already collapsed, move up to parent directory.
-  ;; l: Expand directory under cursor. If it's a file, open it.
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "h") #'treemacs-COLLAPSE-action)
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "l") #'treemacs-RET-action)
-  
-  ;; Intuitive UI additions
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "C-h") #'window-left)
-  (evil-define-key 'treemacs treemacs-mode-map (kbd "C-l") #'window-right))
-
-
-;; ======== General ========
-
-(use-package general
-  :demand t
-  :config
-  (general-evil-setup t)
-  (general-create-definer leader-def
-    :states '(normal motion emacs)
-    :keymaps 'override
-    :prefix "SPC"
-    :non-normal-prefix "C-SPC")
-  (leader-def
-    "" '(:ignore t :wk "leader")
-    "h" '(:ignore t :wk "help")
-    "f" '(:ignore t :wk "file")
-    "t" '(:ignore t :wk "toggle")
-    "b" '(:ignore t :wk "buffer")
-    "p" '(:ignore t :wk "project")
-    
-    ;; project specific
-    "pt" '(treemacs :which-key "Toggle Tree File Explorer")
-    "pf" '(project-find-file :which-key "Fuzzy Find File inside Project")
-    "pd" '(consult-flymake :which-key "Toggle Problem Pane")
-    "pp" '(project-switch-project :which-key "Switch Project Folder")
-    "pc" '(project-compile :which-key "Project Compile")
-    "p." '(project-dired :which-key "Open Dired in Project Root")
-
-    ;; buffer related keys
-    "bi" '(ibuffer-other-window :which-key "Interactive Buffer Picker")
-    "bb" '(consult-buffer :which-key "Simple Buffer Jump")
-    "bo" '(consult-buffer-other-window :which-key "Open Buffer in a new Window using Consult")
-
-    ;; files and dired
-    "fr" '(consult-recent-file :which-key "Recent files")
-    "ff" '(find-file :which-key "Equivalent to :e command")
-    "fo" '(find-file-other-window :which-key "Open File in Vertical Split")
-
-    ;; grep find
-    "/"  '(grep-find :which-key "Equivalent to grep -rn")
-    "rg" '(grep-find :which-key "Equivalent to grep -rn")
-    "."  '(find-file :which-key "Equivalent to :e command")
-    ";"  '(dired-jump :which-key "Dired")
-    "o"  '(dired-jump-other-window :which-key "Dired")
-
-    ;; toggle various options
-    "td" '(consult-flymake :which-key "Toggle Problem Pane")
-
-    ;; Quality of life features
-    ;; My thumb hurt whenever I tried to acces M-x
-    "SPC" '(execute-extended-command :which-key "M-x"))
-
-  (general-mmap
-    :prefix "\\"
-    "" '(:ignore t :wk "mode")))
-
-;; ======== Extra Minimal Utilities ========
-
-(use-package yasnippet-snippets)
-(use-package yasnippet
-  :config
-  (yas-global-mode 1))
+(dolist (package my/optional-packages)
+  (my/ensure-package-installed package))
 
 (provide 'packages)
-
 ;;; packages.el ends here

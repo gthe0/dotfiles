@@ -1,34 +1,89 @@
-;;; languages --- Summary
-;;; Commentary:
-;;; Code:
-(editorconfig-mode 1)
+;;; cfg-languages.el --- Tree-sitter and Eglot -*- lexical-binding: t; -*-
 
-;; Eglot Mode
+(require 'treesit)
 (require 'eglot)
 
-(setq eglot-inlay-hints-mode nil)
+;; Native Emacs 31 Tree-sitter modes.  Each entry is conditional so a missing
+;; grammar or mode never prevents Emacs from starting.
+(dolist (entry
+         '((c-mode . c-ts-mode)
+           (c++-mode . c++-ts-mode)
+           (java-mode . java-ts-mode)
+           (python-mode . python-ts-mode)
+           (js-mode . js-ts-mode)
+           (js-json-mode . json-ts-mode)
+           (json-mode . json-ts-mode)
+           (css-mode . css-ts-mode)
+           (html-mode . html-ts-mode)
+           (sh-mode . bash-ts-mode)))
+  (let ((old (car entry))
+        (new (cdr entry)))
+    (when (and (fboundp new)
+               (boundp (intern (format "%s-hook" old))))
+      (add-to-list 'major-mode-remap-alist (cons old new)))))
 
-(add-hook 'c-mode-hook 'eglot-ensure)
-(add-hook 'c++-mode-hook 'eglot-ensure)
-(add-hook 'c-or-c++-mode-hook 'eglot-ensure)
+;; Eglot is opt-in per programming buffer.  It starts when the language
+;; server is available and a project is recognized.
+(defun cfg/eglot-ensure ()
+  "Start Eglot in the current programming buffer when appropriate."
+  (when (and (derived-mode-p 'prog-mode)
+             (not (derived-mode-p 'emacs-lisp-mode)))
+    (condition-case err
+        (eglot-ensure)
+      (error
+       (message "Eglot not started: %s" (error-message-string err))))))
 
-;; I prefer to have the code unindented inside of namespaces
-(c-set-offset 'innamespace 0)
+(add-hook 'prog-mode-hook #'cfg/eglot-ensure)
 
-(setq tab-width 4)
-(setq indent-tabs-mode nil)
+;; Server programs.  Eglot's defaults cover many languages; these entries
+;; make the important Windows development languages explicit.
+(add-to-list 'eglot-server-programs
+             '((c-mode c-ts-mode c++-mode c++-ts-mode)
+               . ("clangd")))
+(add-to-list 'eglot-server-programs
+             '((java-mode java-ts-mode)
+               . ("jdtls")))
 
-(setq c-default-style "bsd")
-(setq c-basic-indent 4)
-(setq c-basic-offset 4)
+;; Scala/Metals is intentionally not forced here.  Metals configuration varies
+;; with installation/project tooling.  Add it once your Scala setup is known.
+;;
+;; Example:
+;; (add-to-list 'eglot-server-programs
+;;              '((scala-mode scala-ts-mode) . ("metals")))
 
-;; flymake
-(flymake-mode 1)
+;; C/C++ compilation database helpers.
+(setq c-default-style "linux"
+      c-basic-offset 4)
 
-;; I do not like the fact that the lsp changes whenever I type something
-(with-eval-after-load 'flymake
-  ;; Completely disable the idle timer so it never checks while typing
-  (setq flymake-no-changes-timeout nil))
+;; Do not enable format-on-save globally.  Formatting is explicit via C-c f.
+(defun cfg/format-buffer ()
+  "Format the current buffer using Eglot or Apheleia when available."
+  (interactive)
+  (cond
+   ((and (fboundp 'eglot-format-buffer)
+         (eglot-managed-p))
+    (eglot-format-buffer))
+   ((and (fboundp 'apheleia-format-buffer)
+         (bound-and-true-p apheleia-mode))
+    (apheleia-format-buffer))
+   (t
+    (user-error "No formatter available for this buffer"))))
+
+(global-set-key (kbd "C-c f") #'cfg/format-buffer)
+
+(defun cfg/install-tree-sitter-grammars ()
+  "Interactively install grammars for the languages used here."
+  (interactive)
+  (unless (fboundp 'treesit-install-language-grammar)
+    (user-error "Tree-sitter grammar installation is unavailable"))
+  (dolist (lang '(c cpp java python javascript json css html bash))
+    (condition-case err
+        (progn
+          (message "Installing Tree-sitter grammar: %s" lang)
+          (treesit-install-language-grammar lang))
+      (error
+       (message "Could not install %s: %s" lang (error-message-string err)))))
+  (message "Tree-sitter grammar installation finished."))
 
 (provide 'languages)
-;;; langauages.el ends here
+;;; cfg-languages.el ends here
