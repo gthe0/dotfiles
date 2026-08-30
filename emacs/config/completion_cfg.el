@@ -1,4 +1,6 @@
-;;; cfg-completion.el --- Native completion, no Company -*- lexical-binding: t; -*-
+;;; completion_cfg.el --- Native completion, no Company -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'completion)
 (require 'icomplete)
@@ -41,5 +43,5 @@
   ;; Vertico is preferred when installed, so leave Icomplete off by default.
   )
 
-(provide 'Mcompletion)
-;;; cfg-completion.el ends here
+(provide 'completion_cfg)
+;;; completion_cfg.el ends here

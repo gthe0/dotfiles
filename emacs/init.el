@@ -1,6 +1,5 @@
 ;;; init.el --- Emacs 31.1 configuration entry point -*- lexical-binding: t; -*-
-
-;; Commentary:
+;;; Commentary:
 ;;; Code:
 
 ;; Exact semantic version check: 31.1 itself is accepted.
@@ -39,7 +38,7 @@
 (require 'core)
 (require 'packages)
 (require 'editing)
-(require 'Mcompletion)
+(require 'completion_cfg)
 (require 'windows)
 (require 'files)
 (require 'diagnostics)

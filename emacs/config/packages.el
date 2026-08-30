@@ -44,12 +44,14 @@
   '(vertico
     orderless
     marginalia
+    corfu
     consult
     dirvish)
   "Packages required by the configuration.")
 
 (defconst my/optional-packages
-  '(apheleia)
+  '(apheleia
+    doom-themes)
   "Packages that may be installed for optional functionality.")
 
 (defun my/package-refresh-contents-if-needed ()
@@ -85,7 +87,11 @@
 (setq completion-styles '(orderless basic)
       completion-category-defaults nil
       completion-category-overrides
-      '((file (styles partial-completion))))
+      '((file (styles orderless partial-completion))
+        (command (styles orderless basic))
+        (symbol (styles orderless basic))
+        (variable (styles orderless basic))
+        (function (styles orderless basic))))
 
 (require 'marginalia)
 (marginalia-mode 1)
@@ -95,10 +101,29 @@
 (require 'dirvish)
 (dirvish-override-dired-mode)
 
-;; Optional packages
+;; Enable auto completion, configure delay, trigger and quitting
+(require 'corfu)
+(setq corfu-auto t
+      corfu-cycle t
+      corfu-preselect 'prompt
+      corfu-preview-current t
+      corfu-scroll-margin 5
+      corfu-count 10
+      corfu-preselect 'first
+      corfu-auto-prefix 4
+      ;; Tab behaviour
+      tab-always-indent 'complete)
 
+(global-corfu-mode 1)
+
+;; Optional packages
 (dolist (package my/optional-packages)
   (my/ensure-package-installed package))
+
+(require 'apheleia)
+(apheleia-mode 1)
+
+(load-theme 'doom-dark+ t)
 
 (provide 'packages)
 ;;; packages.el ends here

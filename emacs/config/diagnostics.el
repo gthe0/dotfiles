@@ -1,4 +1,6 @@
-;;; cfg-diagnostics.el --- Quiet Flymake / Eglot diagnostics -*- lexical-binding: t; -*-
+;;; diagnostics.el --- Quiet Flymake / Eglot diagnostics -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'flymake)
 
@@ -40,16 +42,14 @@
 
 (add-hook 'prog-mode-hook #'flymake-mode)
 
-(global-set-key (kbd "C-c !") #'cfg/flymake-problems)
-(global-set-key (kbd "C-c n") #'cfg/flymake-next)
-(global-set-key (kbd "C-c p") #'cfg/flymake-prev)
-(global-set-key (kbd "C-c C-!") #'cfg/flymake-start)
+(global-set-key (kbd "C-c C-d") #'consult-flymake)
+(global-set-key (kbd "C-c n") #'flymake-goto-next-error)
+(global-set-key (kbd "C-c p") #'flymake-goto-prev-error)
 
 ;; Eglot's diagnostic publishing goes through Flymake.  Keep the normal Eglot
 ;; transport active, but do not turn changes into immediate diagnostic runs.
 (with-eval-after-load 'eglot
   (setq eglot-send-changes-idle-time 1.0))
 
-
 (provide 'diagnostics)
-;;; cfg-diagnostics.el ends here
+;;; diagnostics.el ends here

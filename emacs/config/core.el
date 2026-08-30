@@ -1,4 +1,6 @@
-;;; cfg-core.el --- Core UI and sane defaults -*- lexical-binding: t; -*-
+;;; core.el --- Core UI and sane defaults -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (setq user-full-name user-full-name)
 
@@ -8,7 +10,7 @@
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (column-number-mode 1)
-(global-display-line-numbers-mode -1)
+(global-display-line-numbers-mode 1)
 
 (setq-default indent-tabs-mode nil
               tab-width 8
@@ -16,9 +18,12 @@
 
 (setq ring-bell-function #'ignore
       use-dialog-box nil
+      use-short-answers t
+      delete-selection-mode t
       confirm-kill-emacs nil
       sentence-end-double-space nil
       require-final-newline t
+      compilation-scroll-output t
       save-interprogram-paste-before-kill t
       x-select-enable-clipboard t
       select-enable-clipboard t
@@ -26,8 +31,10 @@
       backup-by-copying t
       create-lockfiles nil
       auto-save-default t
-      make-backup-files t
+      make-backup-files nil
       inhibit-startup-screen t)
+
+(setq display-line-numbers-type 'relative)
 
 ;; Sensible modern scrolling.
 (setq scroll-conservatively 10
@@ -67,14 +74,6 @@
 (savehist-mode 1)
 (save-place-mode 1)
 
-(setq-default make-backup-files nil
-		create-lockfiles nil
-		compilation-scroll-output t
-		delete-selection-mode t
-		tab-width 8
-		indent-tabs-mode nil
-		use-short-answers t)
-
 ;; Bidirectional text scanning
 (setq-default bidi-display-reordering 'left-to-right
               bidi-paragraph-direction 'left-to-right)
@@ -88,6 +87,8 @@
 (setq-default cursor-in-non-selected-windows nil)
 (setq highlight-nonselected-windows nil)
 
+;; This shit does not work as intended
+(setq electric-indent-mode nil)
 
 ;; Recentf settings
 (setq recentf-max-saved-items 300
@@ -99,9 +100,9 @@
                                     (or (bound-and-true-p cfg-local-dir)
                                         (expand-file-name "local/" user-emacs-directory))))
 
-
 ;; When I use compilation mode, I would like it to switch windows automatically
 (defun pck/switch-to-other-window (buffer status)
+  "Select the window displaying BUFFER, after compilation changes its STATUS."
   (let ((win (get-buffer-window buffer)))
     (when win
       (select-window win))))
@@ -119,4 +120,4 @@
 (set-buffer-file-coding-system 'utf-8)
 
 (provide 'core)
-;;; cfg-core.el ends here
+;;; core.el ends here

@@ -1,4 +1,6 @@
-;;; cfg-languages.el --- Tree-sitter and Eglot -*- lexical-binding: t; -*-
+;;; languages.el --- Tree-sitter and Eglot -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'treesit)
 (require 'eglot)
@@ -44,16 +46,9 @@
              '((java-mode java-ts-mode)
                . ("jdtls")))
 
-;; Scala/Metals is intentionally not forced here.  Metals configuration varies
-;; with installation/project tooling.  Add it once your Scala setup is known.
-;;
-;; Example:
-;; (add-to-list 'eglot-server-programs
-;;              '((scala-mode scala-ts-mode) . ("metals")))
-
 ;; C/C++ compilation database helpers.
-(setq c-default-style "linux"
-      c-basic-offset 4)
+(setq c-default-style "bsdx"
+      c-basic-offset 8)
 
 ;; Do not enable format-on-save globally.  Formatting is explicit via C-c f.
 (defun cfg/format-buffer ()
@@ -86,4 +81,4 @@
   (message "Tree-sitter grammar installation finished."))
 
 (provide 'languages)
-;;; cfg-languages.el ends here
+;;; languages.el ends here

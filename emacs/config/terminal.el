@@ -1,4 +1,6 @@
-;;; cfg-terminal.el --- Eshell and Windows command helpers -*- lexical-binding: t; -*-
+;;; terminal.el --- Eshell and Windows command helpers -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'compile)
 
@@ -29,7 +31,7 @@ The default searches the current directory recursively."
     (compile command)))
 
 (global-set-key (kbd "C-c s") #'cfg/compile-search-findstr)
-(global-set-key (kbd "C-c C") #'cfg/compile-custom-command)
+(global-set-key (kbd "C-c C-c") #'cfg/compile-custom-command)
 
 ;; Eshell is available as the native terminal alternative.
 (global-set-key (kbd "C-c t") #'eshell)
@@ -41,4 +43,4 @@ The default searches the current directory recursively."
               (local-set-key (kbd "C-c C-q") #'eshell/exit))))
 
 (provide 'terminal)
-;;; cfg-terminal.el ends here
+;;; terminal.el ends here

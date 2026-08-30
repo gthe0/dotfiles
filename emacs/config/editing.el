@@ -1,22 +1,6 @@
-;;; cfg-editing.el --- Editing ergonomics -*- lexical-binding: t; -*-
-
-(defun cfg/duplicate-line-or-region ()
-  "Duplicate the current line or active region."
-  (interactive)
-  (let* ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
-         (end (if (use-region-p) (region-end) (line-end-position)))
-         (text (buffer-substring beg end)))
-    (goto-char end)
-    (if (use-region-p)
-        (progn
-          (newline)
-          (insert text)
-          (set-mark (point))
-          (goto-char (+ end 1)))
-      (end-of-line)
-      (newline)
-      (insert text))))
-
+;;; editing.el --- Editing ergonomics -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 (defun cfg/move-line-up ()
   "Move current line up."
   (interactive)
@@ -44,7 +28,6 @@
   (forward-line -1)
   (indent-according-to-mode))
 
-(global-set-key (kbd "C-c d") #'cfg/duplicate-line-or-region)
 (global-set-key (kbd "M-p") #'cfg/move-line-up)
 (global-set-key (kbd "M-n") #'cfg/move-line-down)
 (global-set-key (kbd "C-o") #'cfg/open-line-below)
@@ -65,8 +48,5 @@
                       (indent-region (region-beginning) (region-end))
                     (indent-according-to-mode))))
 
-;; Recenter without moving point.
-(global-set-key (kbd "C-c z") #'recenter-top-bottom)
-
 (provide 'editing)
-;;; cfg-editing.el ends here
+;;; editing.el ends here

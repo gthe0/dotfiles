@@ -1,4 +1,6 @@
-;;; cfg-files.el --- Dired/Dirvish/Wdired -*- lexical-binding: t; -*-
+;;; files.el --- Dired/Dirvish/Wdired -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 (require 'dired)
 (require 'wdired)
@@ -62,7 +64,7 @@
   (define-key dirvish-mode-map (kbd "+") #'cfg/dired-create-file)
   (define-key dirvish-mode-map (kbd "C-c +") #'cfg/dired-create-file))
 
-(global-set-key (kbd "C-x d") #'dired)
+(global-set-key (kbd "C-x C-r") #'recentf)
 
 (provide 'files)
-;;; cfg-files.el ends here
+;;; files.el ends here

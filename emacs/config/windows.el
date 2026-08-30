@@ -1,4 +1,6 @@
-;;; cfg-windows.el --- Predictable auxiliary windows -*- lexical-binding: t; -*-
+;;; windows.el --- Predictable auxiliary windows -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
 
 ;; Auxiliary buffers should not randomly steal the source window.
 (setq display-buffer-alist
@@ -49,4 +51,4 @@
 (global-set-key (kbd "C-c c") #'cfg/compilation-no-select)
 
 (provide 'windows)
-;;; cfg-windows.el ends here
+;;; windows.el ends here
