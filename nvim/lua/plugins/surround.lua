@@ -3,4 +3,3 @@ vim.pack.add({ {
     version = vim.version.range("4.x"), -- Use for stability; omit to use `main` branch for the latest features
 } })
 
-

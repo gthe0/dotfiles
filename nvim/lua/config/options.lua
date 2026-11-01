@@ -17,7 +17,7 @@ opt.inccommand = "split" --Real-Time effect of commands related to searching
 
 -- Case Insensitive Searching
 opt.ignorecase = true -- Ignore Case while searching UNLESS /C or Capital later is added 
-opt.smartcase  = true -- Prioritizes search results based of the capitalization
+opt.smartcase  = false -- Prioritizes search results based of the capitalization
 opt.infercase = true -- Infers the Case based of Search results
 
 -- Windows Options
