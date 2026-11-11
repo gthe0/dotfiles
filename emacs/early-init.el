@@ -5,6 +5,10 @@
 
 (setq package-enable-at-startup nil)
 
+;; #1e1e1e for dark themes like doom-dark+
+(add-to-list 'default-frame-alist '(background-color . "#1e1e1e"))
+(add-to-list 'default-frame-alist '(foreground-color . "#d4d4d4"))
+
 ;; Avoid expensive GC during startup.  The normal value is restored in init.el
 ;; after initialization has finished.
 (setq gc-cons-threshold most-positive-fixnum

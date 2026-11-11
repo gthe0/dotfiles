@@ -10,6 +10,7 @@
 (dolist (entry
          '((c-mode . c-ts-mode)
            (c++-mode . c++-ts-mode)
+           (cmake-mode . cmake-ts-mode)
            (java-mode . java-ts-mode)
            (python-mode . python-ts-mode)
            (js-mode . js-ts-mode)
@@ -38,13 +39,9 @@
 (add-hook 'prog-mode-hook #'cfg/eglot-ensure)
 
 ;; Server programs.  Eglot's defaults cover many languages; these entries
-;; make the important Windows development languages explicit.
 (add-to-list 'eglot-server-programs
-             '((c-mode c-ts-mode c++-mode c++-ts-mode)
-               . ("clangd")))
-(add-to-list 'eglot-server-programs
-             '((java-mode java-ts-mode)
-               . ("jdtls")))
+             '((c-mode c-ts-mode c++-mode c++-ts-mode) . ("clangd"))
+             '((java-mode java-ts-mode)               . ("jdtls")))
 
 ;; C/C++ compilation database helpers.
 (setq c-default-style "bsdx"
@@ -64,8 +61,6 @@
    (t
     (user-error "No formatter available for this buffer"))))
 
-(global-set-key (kbd "C-c f") #'cfg/format-buffer)
-
 (defun cfg/install-tree-sitter-grammars ()
   "Interactively install grammars for the languages used here."
   (interactive)
@@ -79,6 +74,15 @@
       (error
        (message "Could not install %s: %s" lang (error-message-string err)))))
   (message "Tree-sitter grammar installation finished."))
+
+;; Keybinds
+(global-set-key (kbd "C-c f") #'cfg/format-buffer)
+
+(global-set-key (kbd "C-c e r") #'eglot-reconnect)
+(global-set-key (kbd "C-c e q") #'eglot-shutdown)
+
+;; Disable inlay hints
+(setq eglot-inlay-hints-mode nil)
 
 (provide 'languages)
 ;;; languages.el ends here

@@ -47,14 +47,6 @@
 (prefer-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
 
-;; Theme: Modus is built into Emacs 31.  Do not install it as a package.
-(require-theme 'modus-themes)
-(setq modus-themes-italic-constructs t
-      modus-themes-bold-constructs nil)
-(load-theme 'modus-vivendi t)
-
-(global-set-key (kbd "<f5>") #'modus-themes-toggle)
-
 ;; Make Escape a reliable cancel key.
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
 
@@ -87,13 +79,47 @@
 (setq-default cursor-in-non-selected-windows nil)
 (setq highlight-nonselected-windows nil)
 
-;; This shit does not work as intended
-(setq electric-indent-mode nil)
+;; Make electric indentation behave properly
+(setq electric-indent-inhibit t)
 
 ;; Recentf settings
 (setq recentf-max-saved-items 300
       history-length 500
       save-place-forget-unreadable-files nil)
+
+;; Set default font
+(defcustom cfg/preferred-fonts
+  '("Iosevka Nerd Font Mono" "Iosevka Nerd Font" "Consolas" "monospace")
+  "List of preferred fonts for the editor, in order of preference."
+  :type '(repeat string)
+  :group 'convenience)
+
+(defcustom cfg/font-size 13
+  "Preferred font size in points."
+  :type 'integer
+  :group 'convenience)
+
+(defun cfg/get-available-font (font-list)
+  "Iterate through FONT-LIST and return the first one installed on the system."
+  (seq-find (lambda (font)
+              (member font (font-family-list)))
+            font-list))
+
+(defun cfg/apply-font (font size)
+  "Apply FONT at the given SIZE to the current frame and set it as default."
+  (when font
+    ;; `set-frame-font` remains the standard, robust way to handle this nowadays.
+    (set-frame-font (format "%s %d" font size) nil t)
+    (message "Applied font: %s (size %d)" font size)))
+
+(defun cfg/set-editor-font ()
+  "Set the editor font using `cfg/preferred-fonts' and `cfg/font-size'."
+  (interactive)
+  (if-let* ((font (cfg/get-available-font cfg/preferred-fonts)))
+      (cfg/apply-font font cfg/font-size)
+    (warn "None of the preferred fonts were found on this system!")))
+
+(cfg/set-editor-font)
 
 ;; Keep customization out of init.el.
 (setq custom-file (expand-file-name "custom.el"
@@ -101,13 +127,13 @@
                                         (expand-file-name "local/" user-emacs-directory))))
 
 ;; When I use compilation mode, I would like it to switch windows automatically
-(defun pck/switch-to-other-window (buffer status)
+(defun cfg/switch-to-other-window (buffer status)
   "Select the window displaying BUFFER, after compilation changes its STATUS."
   (let ((win (get-buffer-window buffer)))
     (when win
       (select-window win))))
 
-(add-hook 'compilation-finish-functions #'pck/switch-to-other-window)
+(add-hook 'compilation-finish-functions #'cfg/switch-to-other-window)
 
 ;; UTF-8 encoding things (Prot's standard)
 (prefer-coding-system 'utf-8)
