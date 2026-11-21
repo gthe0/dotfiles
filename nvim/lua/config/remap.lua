@@ -25,8 +25,5 @@ vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count =  1, float = t
 vim.keymap.set({"n","v","i"}, "<S-F8>", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "previous diagnostics" })
 vim.keymap.set({"n","v","i"}, "<F8>",   function() vim.diagnostic.jump({ count =  1, float = true }) end, { desc = "next diagnostics" })
 
--- Open file manager
-vim.keymap.set("n", "<leader>o", ":Ex<CR>", { desc = "Open File Manager"})
-
 -- Window management
 vim.keymap.set({"n", "v"}, "<leader>w", "<C-w>", { desc = "easier to open Window Mode"})
