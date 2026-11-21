@@ -1,4 +1,4 @@
-;;; files.el --- Dired/Dirvish/Wdired -*- lexical-binding: t; -*-
+;;; files_cfg.el --- Dired/Dirvish/Wdired -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -58,13 +58,7 @@
 (define-key dired-mode-map (kbd "C-c +") #'cfg/dired-create-file)
 (define-key dired-mode-map (kbd "C-c C-d") #'cfg/dired-create-directory)
 
-;; Dirvish uses Dired's editing facilities.  Keep Wdired explicit.
-(with-eval-after-load 'dirvish
-  (define-key dirvish-mode-map (kbd "C-c C-w") #'cfg/dired-writable)
-  (define-key dirvish-mode-map (kbd "+") #'cfg/dired-create-file)
-  (define-key dirvish-mode-map (kbd "C-c +") #'cfg/dired-create-file))
-
 (global-set-key (kbd "C-x C-r") #'recentf)
 
-(provide 'files)
-;;; files.el ends here
+(provide 'files_cfg)
+;;; files_cfg.el ends here

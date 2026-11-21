@@ -1,4 +1,4 @@
-;;; languages.el --- Tree-sitter and Eglot -*- lexical-binding: t; -*-
+;;; languages_cfg.el --- Tree-sitter and Eglot -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -24,6 +24,21 @@
     (when (and (fboundp new)
                (boundp (intern (format "%s-hook" old))))
       (add-to-list 'major-mode-remap-alist (cons old new)))))
+
+;; Eglot lsp configuration
+(setq eglot-code-action-indications nil
+      eglot-report-progress nil
+      eglot-max-file-watches 2500)
+
+;; Eglot disabled capabilities
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-ignored-server-capabilities :inlayHintProvider))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-ignored-server-capabilities :documentOnTypeFormattingProvider))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider))
 
 ;; Eglot is opt-in per programming buffer.  It starts when the language
 ;; server is available and a project is recognized.
@@ -81,8 +96,5 @@
 (global-set-key (kbd "C-c e r") #'eglot-reconnect)
 (global-set-key (kbd "C-c e q") #'eglot-shutdown)
 
-;; Disable inlay hints
-(setq eglot-inlay-hints-mode nil)
-
-(provide 'languages)
-;;; languages.el ends here
+(provide 'languages_cfg)
+;;; languages_cfg.el ends here

@@ -22,28 +22,20 @@
   (setq file-name-handler-alist cfg--saved-file-name-handler-alist)
   (makunbound 'cfg--saved-file-name-handler-alist))
 
-;; package.el is built in.  We do not call package-initialize: package.el
-;; initializes itself on first use in modern Emacs.
-(require 'package)
-
-(setq package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-
 ;; Load local customization separately so it can be kept machine-specific.
 (load (expand-file-name "custom.el" cfg-local-dir) t t)
 
 ;; Configuration modules all use the cfg- prefix so they cannot collide with
 ;; Emacs libraries such as completion.el, files.el, windows.el, etc.
-(require 'core)
-(require 'packages)
-(require 'editing)
+(require 'core_cfg)
+(require 'packages_cfg)
+(require 'editing_cfg)
 (require 'completion_cfg)
-(require 'windows)
-(require 'files)
-(require 'diagnostics)
-(require 'languages)
-(require 'terminal)
+(require 'windows_cfg)
+(require 'diagnostics_cfg)
+(require 'languages_cfg)
+(require 'terminal_cfg)
+(require 'files_cfg)
 
 ;; Return GC to a normal interactive value after startup.
 (setq gc-cons-threshold (* 32 1024 1024)

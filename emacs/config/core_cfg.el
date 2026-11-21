@@ -1,4 +1,4 @@
-;;; core.el --- Core UI and sane defaults -*- lexical-binding: t; -*-
+;;; core_cfg.el --- Core UI and sane defaults -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -145,5 +145,5 @@
 (set-clipboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
 
-(provide 'core)
-;;; core.el ends here
+(provide 'core_cfg)
+;;; core_cfg.el ends here

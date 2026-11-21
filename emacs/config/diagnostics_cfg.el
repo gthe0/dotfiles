@@ -1,4 +1,4 @@
-;;; diagnostics.el --- Quiet Flymake / Eglot diagnostics -*- lexical-binding: t; -*-
+;;; diagnostics_cfg.el --- Quiet Flymake / Eglot diagnostics -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -6,9 +6,9 @@
 
 ;; Do not run diagnostics continuously while inserting.  We explicitly start
 ;; checks on save and provide an on-demand command.
-(setq flymake-no-changes-timeout nil
-      flymake-start-on-flymake-mode t
+(setq flymake-no-changes-timeout 0.3
       flymake-start-on-save-buffer t
+      flymake-start-on-flymake-mode t
       flymake-fringe-indicator-position 'right-fringe)
 
 (defun cfg/flymake-start ()
@@ -46,10 +46,5 @@
 (global-set-key (kbd "C-c n") #'flymake-goto-next-error)
 (global-set-key (kbd "C-c p") #'flymake-goto-prev-error)
 
-;; Eglot's diagnostic publishing goes through Flymake.  Keep the normal Eglot
-;; transport active, but do not turn changes into immediate diagnostic runs.
-(with-eval-after-load 'eglot
-  (setq eglot-send-changes-idle-time 1.0))
-
-(provide 'diagnostics)
-;;; diagnostics.el ends here
+(provide 'diagnostics_cfg)
+;;; diagnostics_cfg.el ends here

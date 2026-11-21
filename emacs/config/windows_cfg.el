@@ -1,4 +1,4 @@
-;;; windows.el --- Predictable auxiliary windows -*- lexical-binding: t; -*-
+;;; windows_cfg.el --- Predictable auxiliary windows -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -41,6 +41,19 @@
 
 (global-set-key (kbd "C-c w q") #'cfg/quit-auxiliary-window)
 
+;; Winner mode
+(winner-mode t)
+
+(defun toggle-delete-other-windows ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode (equal (selected-window) (next-window)))
+      (winner-undo)
+    (delete-other-windows)))
+
+;; Ultimate Window Management Hack
+(global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
+
 ;; Keep source buffers focused when launching common auxiliary commands.
 (defun cfg/compilation-no-select ()
   "Compile without selecting the compilation window."
@@ -50,5 +63,5 @@
 
 (global-set-key (kbd "C-c c") #'cfg/compilation-no-select)
 
-(provide 'windows)
-;;; windows.el ends here
+(provide 'windows_cfg)
+;;; windows_cfg.el ends here

@@ -1,4 +1,4 @@
-;;; terminal.el --- Eshell and Windows command helpers -*- lexical-binding: t; -*-
+;;; terminal_cfg.el --- Eshell and Windows command helpers -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -42,5 +42,5 @@ The default searches the current directory recursively."
             (lambda ()
               (local-set-key (kbd "C-c C-q") #'eshell/exit))))
 
-(provide 'terminal)
-;;; terminal.el ends here
+(provide 'terminal_cfg)
+;;; terminal_cfg.el ends here
