@@ -51,17 +51,16 @@
       (winner-undo)
     (delete-other-windows)))
 
-;; Ultimate Window Management Hack
 (global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
 
-;; Keep source buffers focused when launching common auxiliary commands.
-(defun cfg/compilation-no-select ()
-  "Compile without selecting the compilation window."
-  (interactive)
-  (let ((compilation-scroll-output 'first-error))
-    (call-interactively #'compile)))
+;; When I use compilation mode, I would like it to switch windows automatically
+(defun cfg/switch-to-other-window (buffer status)
+  "Select the window displaying BUFFER, after compilation changes its STATUS."
+  (let ((win (get-buffer-window buffer)))
+    (when win
+      (select-window win))))
 
-(global-set-key (kbd "C-c c") #'cfg/compilation-no-select)
+(add-hook 'compilation-finish-functions #'cfg/switch-to-other-window)
 
 (provide 'windows_cfg)
 ;;; windows_cfg.el ends here

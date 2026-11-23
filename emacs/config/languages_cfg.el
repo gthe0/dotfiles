@@ -10,7 +10,6 @@
 (dolist (entry
          '((c-mode . c-ts-mode)
            (c++-mode . c++-ts-mode)
-           (cmake-mode . cmake-ts-mode)
            (java-mode . java-ts-mode)
            (python-mode . python-ts-mode)
            (js-mode . js-ts-mode)
@@ -58,11 +57,11 @@
              '((c-mode c-ts-mode c++-mode c++-ts-mode) . ("clangd"))
              '((java-mode java-ts-mode)               . ("jdtls")))
 
-;; C/C++ compilation database helpers.
-(setq c-default-style "bsdx"
+;; C/C++ indentation
+(setq c-default-style "bsd"
       c-basic-offset 8)
 
-;; Do not enable format-on-save globally.  Formatting is explicit via C-c f.
+;; Do not enable format-on-save globally. Formatting is explicit via C-c f.
 (defun cfg/format-buffer ()
   "Format the current buffer using Eglot or Apheleia when available."
   (interactive)
@@ -70,28 +69,12 @@
    ((and (fboundp 'eglot-format-buffer)
          (eglot-managed-p))
     (eglot-format-buffer))
-   ((and (fboundp 'apheleia-format-buffer)
-         (bound-and-true-p apheleia-mode))
-    (apheleia-format-buffer))
    (t
     (user-error "No formatter available for this buffer"))))
 
-(defun cfg/install-tree-sitter-grammars ()
-  "Interactively install grammars for the languages used here."
-  (interactive)
-  (unless (fboundp 'treesit-install-language-grammar)
-    (user-error "Tree-sitter grammar installation is unavailable"))
-  (dolist (lang '(c cpp java python javascript json css html bash))
-    (condition-case err
-        (progn
-          (message "Installing Tree-sitter grammar: %s" lang)
-          (treesit-install-language-grammar lang))
-      (error
-       (message "Could not install %s: %s" lang (error-message-string err)))))
-  (message "Tree-sitter grammar installation finished."))
-
 ;; Keybinds
 (global-set-key (kbd "C-c f") #'cfg/format-buffer)
+(global-set-key (kbd "C-c r") #'eglot-rename)
 
 (global-set-key (kbd "C-c e r") #'eglot-reconnect)
 (global-set-key (kbd "C-c e q") #'eglot-shutdown)

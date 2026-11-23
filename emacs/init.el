@@ -25,7 +25,7 @@
 ;; Load local customization separately so it can be kept machine-specific.
 (load (expand-file-name "custom.el" cfg-local-dir) t t)
 
-;; Configuration modules all use the cfg- prefix so they cannot collide with
+;; Configuration modules all use the "_cfg" postfix so they cannot collide with
 ;; Emacs libraries such as completion.el, files.el, windows.el, etc.
 (require 'core_cfg)
 (require 'packages_cfg)
@@ -36,6 +36,7 @@
 (require 'languages_cfg)
 (require 'terminal_cfg)
 (require 'files_cfg)
+(require 'treesit_cfg)
 
 ;; Return GC to a normal interactive value after startup.
 (setq gc-cons-threshold (* 32 1024 1024)

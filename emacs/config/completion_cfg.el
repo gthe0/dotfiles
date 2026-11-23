@@ -45,3 +45,4 @@
 
 (provide 'completion_cfg)
 ;;; completion_cfg.el ends here
+

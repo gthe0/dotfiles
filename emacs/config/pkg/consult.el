@@ -10,6 +10,9 @@
          ("C-x r b" . consult-bookmark)
          ("C-x C-b" . ibuffer)
 
+         ;; C-c diagnostics
+         ("C-c C-d" . consult-flymake)
+         
          ;; Search / Grep bindings (M-s)
          ("M-s r"   . consult-ripgrep)
          ("M-s m"   . consult-mark)

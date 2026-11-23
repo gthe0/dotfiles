@@ -5,7 +5,7 @@
 
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c m a") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-c m l") 'mc/edit-lines)
+
+(global-set-key (kbd "C-c a") 'mc/mark-all-like-this)
 
 ;;; multiple_cursors.el ends here
